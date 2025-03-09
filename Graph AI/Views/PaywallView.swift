@@ -109,15 +109,18 @@ struct PaywallView: View {
                                 
                                 if subscriptionPeriod.unit == .month && subscriptionPeriod.value == 1 {
                                     
-                                    SubscriptionPack(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed) {
-                                        isYearlyChoosed = false
-                                        selectedPackage = package
-                                    }
+                                    SubscriptionOptionView(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed, showFreeTrial: false)
+                                        .onTapGesture {
+                                            isYearlyChoosed = false
+                                            selectedPackage = package
+                                        }
                                 } else if subscriptionPeriod.unit == .year {
-                                    SubscriptionPack(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed) {
-                                        isYearlyChoosed = true
-                                        selectedPackage = package
-                                    }
+                                    
+                                    SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial())
+                                        .onTapGesture {
+                                            isYearlyChoosed = true
+                                            selectedPackage = package
+                                        }
                                 }
                             }
                         }
@@ -152,7 +155,7 @@ struct PaywallView: View {
                         }
                     }
                 }) {
-                    Text(playingVideo ? "Continue" :"Unlock")
+                    Text(getButtonTitle())
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -203,6 +206,30 @@ struct PaywallView: View {
         .padding(.top, 12)
         .background(Color.black.edgesIgnoringSafeArea(.all))
         .foregroundColor(.white)
+    }
+    
+    func getButtonTitle() -> String {
+        guard !playingVideo else {
+            return "Continue"
+        }
+        guard let package = selectedPackage else {
+            return playingVideo ? "Continue" : "Unlock"
+        }
+        if hasFreeTrial() {
+            return "Start My Free Trial"
+        } else {
+            return playingVideo ? "Continue" : "Unlock"
+        }
+    }
+    
+    func hasFreeTrial() -> Bool {
+        guard let package = selectedPackage else {
+            return false
+        }
+        if let introOffer = package.storeProduct.introductoryDiscount {
+            return introOffer.paymentMode == .freeTrial
+        }
+        return false
     }
     
     func getFormattedPrice(package: Package) -> String {
@@ -296,6 +323,62 @@ struct CustomCell: View {
             }
         }
         .padding(.horizontal, 10)
+    }
+}
+
+struct SubscriptionOptionView: View {
+    let title: String
+    let price: String
+    let isSelected: Bool
+    let showFreeTrial: Bool
+    
+    var body: some View {
+        ZStack(alignment: .top) {
+            // Subscription Box
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(isSelected ? Color.white : Color.gray, lineWidth: 6)
+                .background(Color.clear)
+                .cornerRadius(12)
+                .frame(maxWidth: .infinity, maxHeight: 100)
+
+            // "3 DAYS FREE" Badge
+            if showFreeTrial {
+                Text(" 3 DAYS FREE ")
+                    .font(.headline)
+                    .padding(.horizontal, 12)
+                    .background(RoundedRectangle(cornerRadius: 15).fill(Color.white))
+                    .foregroundColor(.black)
+                    .offset(y: -12)
+            }
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.top, 4)
+
+                    Text(price)
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.white)
+                }
+                .padding()
+                
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.white)
+                        .font(.title2)
+                } else {
+                    Image(systemName: "circle")
+                        .foregroundColor(.gray)
+                        .font(.title2)
+                }
+                Spacer()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: 100)
+        .padding(.horizontal, 12)
     }
 }
 
