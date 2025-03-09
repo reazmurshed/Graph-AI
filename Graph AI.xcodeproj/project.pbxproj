@@ -1,0 +1,837 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 6AFC2A852D7C635800B16ED5 /* RevenueCat */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		84D9B4342D747E9E000925E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84C867BE2D66D40400393461 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84D9B41F2D747E9C000925E7;
+			remoteInfo = "Graph AI";
+		};
+		84D9B43E2D747E9E000925E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84C867BE2D66D40400393461 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84D9B41F2D747E9C000925E7;
+			remoteInfo = "Graph AI";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		84C867DA2D66D41700393461 /* Graph AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Graph AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84C867E42D66D41700393461 /* Graph AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Graph AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D9B4202D747E9C000925E7 /* Graph AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Graph AI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D9B4332D747E9E000925E7 /* Graph AITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Graph AITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D9B43D2D747E9E000925E7 /* Graph AIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Graph AIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6AFC2A942D7CB22800B16ED5 /* Exceptions for "Graph AI" folder in "Graph AI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ORIGINAL.mp4,
+			);
+			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;
+		};
+		84D9B44B2D747E9E000925E7 /* Exceptions for "Graph AI" folder in "Graph AI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		84C867C82D66D40400393461 /* Graph AI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6AFC2A942D7CB22800B16ED5 /* Exceptions for "Graph AI" folder in "Graph AI" target */,
+			);
+			path = "Graph AI";
+			sourceTree = "<group>";
+		};
+		84C867DD2D66D41700393461 /* Graph AITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Graph AITests";
+			sourceTree = "<group>";
+		};
+		84C867E72D66D41700393461 /* Graph AIUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Graph AIUITests";
+			sourceTree = "<group>";
+		};
+		84D9B4212D747E9C000925E7 /* Graph AI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				84D9B44B2D747E9E000925E7 /* Exceptions for "Graph AI" folder in "Graph AI" target */,
+			);
+			path = "Graph AI";
+			sourceTree = "<group>";
+		};
+		84D9B4362D747E9E000925E7 /* Graph AITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Graph AITests";
+			sourceTree = "<group>";
+		};
+		84D9B4402D747E9E000925E7 /* Graph AIUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Graph AIUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84C867D72D66D41700393461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84C867E12D66D41700393461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B41D2D747E9C000925E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B4302D747E9E000925E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B43A2D747E9E000925E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6AFC2A9C2D7D4DD600B16ED5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84C867BD2D66D40400393461 = {
+			isa = PBXGroup;
+			children = (
+				84C867C82D66D40400393461 /* Graph AI */,
+				84C867DD2D66D41700393461 /* Graph AITests */,
+				84C867E72D66D41700393461 /* Graph AIUITests */,
+				84D9B4212D747E9C000925E7 /* Graph AI */,
+				84D9B4362D747E9E000925E7 /* Graph AITests */,
+				84D9B4402D747E9E000925E7 /* Graph AIUITests */,
+				6AFC2A9C2D7D4DD600B16ED5 /* Frameworks */,
+				84C867C72D66D40400393461 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		84C867C72D66D40400393461 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84C867DA2D66D41700393461 /* Graph AITests.xctest */,
+				84C867E42D66D41700393461 /* Graph AIUITests.xctest */,
+				84D9B4202D747E9C000925E7 /* Graph AI.app */,
+				84D9B4332D747E9E000925E7 /* Graph AITests.xctest */,
+				84D9B43D2D747E9E000925E7 /* Graph AIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		84C867D92D66D41700393461 /* Graph AITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84C867F22D66D41700393461 /* Build configuration list for PBXNativeTarget "Graph AITests" */;
+			buildPhases = (
+				84C867D62D66D41700393461 /* Sources */,
+				84C867D72D66D41700393461 /* Frameworks */,
+				84C867D82D66D41700393461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				84C867DD2D66D41700393461 /* Graph AITests */,
+			);
+			name = "Graph AITests";
+			packageProductDependencies = (
+			);
+			productName = "Graph AITests";
+			productReference = 84C867DA2D66D41700393461 /* Graph AITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		84C867E32D66D41700393461 /* Graph AIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84C867F52D66D41700393461 /* Build configuration list for PBXNativeTarget "Graph AIUITests" */;
+			buildPhases = (
+				84C867E02D66D41700393461 /* Sources */,
+				84C867E12D66D41700393461 /* Frameworks */,
+				84C867E22D66D41700393461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				84C867E72D66D41700393461 /* Graph AIUITests */,
+			);
+			name = "Graph AIUITests";
+			packageProductDependencies = (
+			);
+			productName = "Graph AIUITests";
+			productReference = 84C867E42D66D41700393461 /* Graph AIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		84D9B41F2D747E9C000925E7 /* Graph AI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84D9B44C2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AI" */;
+			buildPhases = (
+				84D9B41C2D747E9C000925E7 /* Sources */,
+				84D9B41D2D747E9C000925E7 /* Frameworks */,
+				84D9B41E2D747E9C000925E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				84D9B4212D747E9C000925E7 /* Graph AI */,
+			);
+			name = "Graph AI";
+			packageProductDependencies = (
+				6AFC2A852D7C635800B16ED5 /* RevenueCat */,
+			);
+			productName = "Graph AI";
+			productReference = 84D9B4202D747E9C000925E7 /* Graph AI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		84D9B4322D747E9E000925E7 /* Graph AITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84D9B44D2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AITests" */;
+			buildPhases = (
+				84D9B42F2D747E9E000925E7 /* Sources */,
+				84D9B4302D747E9E000925E7 /* Frameworks */,
+				84D9B4312D747E9E000925E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84D9B4352D747E9E000925E7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				84D9B4362D747E9E000925E7 /* Graph AITests */,
+			);
+			name = "Graph AITests";
+			packageProductDependencies = (
+			);
+			productName = "Graph AITests";
+			productReference = 84D9B4332D747E9E000925E7 /* Graph AITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		84D9B43C2D747E9E000925E7 /* Graph AIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84D9B44E2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AIUITests" */;
+			buildPhases = (
+				84D9B4392D747E9E000925E7 /* Sources */,
+				84D9B43A2D747E9E000925E7 /* Frameworks */,
+				84D9B43B2D747E9E000925E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84D9B43F2D747E9E000925E7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				84D9B4402D747E9E000925E7 /* Graph AIUITests */,
+			);
+			name = "Graph AIUITests";
+			packageProductDependencies = (
+			);
+			productName = "Graph AIUITests";
+			productReference = 84D9B43D2D747E9E000925E7 /* Graph AIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		84C867BE2D66D40400393461 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					84C867D92D66D41700393461 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 84C867C52D66D40400393461;
+					};
+					84C867E32D66D41700393461 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 84C867C52D66D40400393461;
+					};
+					84D9B41F2D747E9C000925E7 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					84D9B4322D747E9E000925E7 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 84D9B41F2D747E9C000925E7;
+					};
+					84D9B43C2D747E9E000925E7 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 84D9B41F2D747E9C000925E7;
+					};
+				};
+			};
+			buildConfigurationList = 84C867C12D66D40400393461 /* Build configuration list for PBXProject "Graph AI" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+			);
+			mainGroup = 84C867BD2D66D40400393461;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 84C867C72D66D40400393461 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				84C867D92D66D41700393461 /* Graph AITests */,
+				84C867E32D66D41700393461 /* Graph AIUITests */,
+				84D9B41F2D747E9C000925E7 /* Graph AI */,
+				84D9B4322D747E9E000925E7 /* Graph AITests */,
+				84D9B43C2D747E9E000925E7 /* Graph AIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		84C867D82D66D41700393461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84C867E22D66D41700393461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B41E2D747E9C000925E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B4312D747E9E000925E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B43B2D747E9E000925E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		84C867D62D66D41700393461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84C867E02D66D41700393461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B41C2D747E9C000925E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B42F2D747E9E000925E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84D9B4392D747E9E000925E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		84D9B4352D747E9E000925E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;
+			targetProxy = 84D9B4342D747E9E000925E7 /* PBXContainerItemProxy */;
+		};
+		84D9B43F2D747E9E000925E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;
+			targetProxy = 84D9B43E2D747E9E000925E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		84C867F02D66D41700393461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		84C867F12D66D41700393461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		84C867F32D66D41700393461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Graph AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Graph AI";
+			};
+			name = Debug;
+		};
+		84C867F42D66D41700393461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Graph AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Graph AI";
+			};
+			name = Release;
+		};
+		84C867F62D66D41700393461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Graph AI";
+			};
+			name = Debug;
+		};
+		84C867F72D66D41700393461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Graph AI";
+			};
+			name = Release;
+		};
+		84D9B4452D747E9E000925E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Graph AI/Graph_AI.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Graph AI/Preview Content\"";
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Graph AI/GraphAI-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		84D9B4462D747E9E000925E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Graph AI/Graph_AI.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Graph AI/Preview Content\"";
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Graph AI/GraphAI-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		84D9B4472D747E9E000925E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Graph AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Graph AI";
+			};
+			name = Debug;
+		};
+		84D9B4482D747E9E000925E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Graph AI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Graph AI";
+			};
+			name = Release;
+		};
+		84D9B4492D747E9E000925E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Graph AI";
+			};
+			name = Debug;
+		};
+		84D9B44A2D747E9E000925E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9JJ22P7YS8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "graphai.Graph-AIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Graph AI";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		84C867C12D66D40400393461 /* Build configuration list for PBXProject "Graph AI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84C867F02D66D41700393461 /* Debug */,
+				84C867F12D66D41700393461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84C867F22D66D41700393461 /* Build configuration list for PBXNativeTarget "Graph AITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84C867F32D66D41700393461 /* Debug */,
+				84C867F42D66D41700393461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84C867F52D66D41700393461 /* Build configuration list for PBXNativeTarget "Graph AIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84C867F62D66D41700393461 /* Debug */,
+				84C867F72D66D41700393461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84D9B44C2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84D9B4452D747E9E000925E7 /* Debug */,
+				84D9B4462D747E9E000925E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84D9B44D2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84D9B4472D747E9E000925E7 /* Debug */,
+				84D9B4482D747E9E000925E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84D9B44E2D747E9E000925E7 /* Build configuration list for PBXNativeTarget "Graph AIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84D9B4492D747E9E000925E7 /* Debug */,
+				84D9B44A2D747E9E000925E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6AFC2A852D7C635800B16ED5 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 84C867BE2D66D40400393461 /* Project object */;
+}

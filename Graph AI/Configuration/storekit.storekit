@@ -1,0 +1,42 @@
+{
+  "identifier" : "GraphAI_Subscription",
+  "nonRenewingSubscriptions" : [ ],
+  "products" : [ ],
+  "settings" : {
+    "_applicationInternalID" : "graphai.Graph-AI",
+    "_developerTeamID" : "YOUR_TEAM_ID",
+    "_lastSynchronizedDate" : 709584000
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "GraphAI_Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [ ],
+          "codeOffers" : [ ],
+          "displayPrice" : "34.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "graphai.yearly",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlock unlimited chart analysis",
+              "displayName" : "Yearly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "graphai.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly Subscription",
+          "subscriptionGroupID" : "GraphAI_Subscriptions",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+} 

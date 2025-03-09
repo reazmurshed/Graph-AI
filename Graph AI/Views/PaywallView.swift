@@ -1,0 +1,347 @@
+//
+//  PaywallView.swift
+//  Graph AI
+//
+//  Created by Reaz Sumon on 7/3/25.
+//
+
+import SwiftUI
+import AVKit
+import RevenueCat
+
+struct PaywallView: View {
+    @State private var isYearlyChoosed = true
+    @State private var showingPaywall = false
+    @State private var playingVideo = true
+    @Binding var hidePaywallIntro: Bool
+    @State private var selectedPackage: Package? = PaywallHelper.shared.selectedPackage
+    
+    var player: AVPlayer {
+        if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
+            let player = AVPlayer(url: url)
+            player.actionAtItemEnd = .none
+            
+            // Looping logic: Observe when the video finishes and restart
+            NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { _ in
+                //playingVideo = false
+                player.seek(to: .zero)
+                player.play()
+            }
+            print("found video URL")
+            player.play()
+            return player
+        } else {
+            print("Can't find video URL")
+        }
+        
+        return AVPlayer()
+    }
+    
+    var body: some View {
+        VStack {
+            // Header View Section
+            if playingVideo {
+                Text("Start trading like an expert with Graph Al.")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+                
+                // Permium Features Section
+                VStack(alignment: .leading, spacing: 16) {
+                    VideoPlayerView(player: player)
+                        .onAppear {
+                            player.play()
+                        }
+                        .onDisappear {
+                            player.pause()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .edgesIgnoringSafeArea(.all)
+                }
+                .padding(.top, 5)
+                .padding(.bottom, 5)
+            } else {
+                // Custom Back Button
+                HStack {
+                    Button(action: {
+                        hidePaywallIntro = false
+                    }) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                        }
+                        .padding(.horizontal)
+                        .foregroundColor(.white)
+                        .background(.clear)
+                        .cornerRadius(8)
+                    }
+                    Spacer() // Pushes button to the left
+                }
+                .padding()
+                
+                // Header View Section
+                Text("Unlock Graph AI to turn charts into cash.")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+                
+                // Permium Features Section
+                VStack(alignment: .leading, spacing: 16) {
+                    CustomCell(text: "No More Gambling", description: "Understand market trends with precise insights from your chart.")
+                    CustomCell(text: "Custom Trading Strategy", description: "Get a step-by-step game plan to make your next winning trade.")
+                    CustomCell(text: "Trade With Confidence", description: "AI-powered analysis to boost your trading confidence and clarity.")
+                }
+                .padding(.top, 5)
+                
+                Spacer()
+                
+                // Subscription Pack Section
+                VStack {
+                    HStack {
+                        ForEach(PaywallHelper.shared.allPackages ?? []) { package in
+                            
+                            if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
+                                
+                                if subscriptionPeriod.unit == .month && subscriptionPeriod.value == 1 {
+                                    
+                                    SubscriptionPack(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed) {
+                                        isYearlyChoosed = false
+                                        selectedPackage = package
+                                    }
+                                } else if subscriptionPeriod.unit == .year {
+                                    SubscriptionPack(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed) {
+                                        isYearlyChoosed = true
+                                        selectedPackage = package
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 24)
+                }
+            }
+            
+            // Bottom Section
+            VStack {
+                Text("✓ No Commitment - Cancel Anytime")
+                    .font(Font.system(size: 15))
+                    .foregroundColor(.white)
+                    .padding(.top, 8)
+                
+                Button(action: {
+                    if playingVideo {
+                        playingVideo = false
+                        print("Subscription Continue...")
+                    } else {
+                        print("Start Subscription...")
+                        if let package = selectedPackage {
+                            print("Navigate to Payment Screen...")
+                            PaywallHelper.shared.purchase(package: package) { success in
+                                if success {
+                                    print("Purchase Success...")
+                                    hidePaywallIntro = false
+                                } else {
+                                    print("Failed to Purchase...")
+                                }
+                            }
+                        }
+                    }
+                }) {
+                    Text(playingVideo ? "Continue" :"Unlock")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .clipShape(RoundedRectangle(cornerRadius: 22))
+                        .padding(.horizontal, 12)
+                }
+                .frame(maxHeight: 44)
+                .padding(.top, 16)
+                
+                // Pack Price Section
+                if let package = selectedPackage {
+                    Text(getFullFormFormattedPrice(package: package))
+                        .padding(.top, 4)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                } else {
+                    Text("Just 34,99 € per year (2,91 €/mo)")
+                        .padding(.top, 4)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+                
+                
+                // Footer Section
+                HStack(spacing: 16) {
+                    Link("Terms of Service", destination: URL(string: "https://example.com")!)
+                        .foregroundColor(.gray)
+                    Link("Privacy Policy", destination: URL(string: "https://example.com")!)
+                        .foregroundColor(.gray)
+                    Button("Restore Purchase") {
+                        print("Restore Purchase Tapped")
+                        PaywallHelper.shared.restorePurchases { success in
+                            if success {
+                                print("Restore Purchases Success")
+                            } else {
+                                print("Restore Purchases Failed")
+                            }
+                        }
+                    }
+                    .padding(.top, 4)
+                    .foregroundColor(.gray)
+                }
+                .font(.footnote)
+            }
+        }
+        .padding(.top, 12)
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+        .foregroundColor(.white)
+    }
+    
+    func getFormattedPrice(package: Package) -> String {
+        var monthlyPrice: Float = (package.storeProduct.price as NSDecimalNumber).floatValue
+        if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
+            if subscriptionPeriod.unit == .year {
+                monthlyPrice = monthlyPrice / 12.0
+            }
+        }
+        if let currencyCode = package.storeProduct.currencyCode {
+            return "\(String(format: "%.2f", monthlyPrice))" + " " + getSymbol(forCurrencyCode: currencyCode) + " / mo"
+        } else {
+            return "\(monthlyPrice)" + " " + "$" + " / mo"
+        }
+    }
+    
+    func getFullFormFormattedPrice(package: Package) -> String {
+        var monthlyPrice: Float = (package.storeProduct.price as NSDecimalNumber).floatValue
+        var currencyCode: String = getSymbol(forCurrencyCode: "USD")
+        if let currency = package.storeProduct.currencyCode {
+            currencyCode = getSymbol(forCurrencyCode: currency)
+        }
+        
+        if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
+            if subscriptionPeriod.unit == .year {
+                monthlyPrice = monthlyPrice / 12.0
+                return "Just " + "\(String(format: "%.2f", monthlyPrice * 12))" + " " + currencyCode + " per year" + " (" + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + "/mo" + ")"
+            } else {
+                return "Just " + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + " per month"
+            }
+        } else {
+            return "Just " + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + " per month"
+        }
+    }
+    
+    func getSymbol(forCurrencyCode code: String) -> String {
+       let locale = NSLocale(localeIdentifier: code)
+        return locale.displayName(forKey: NSLocale.Key.currencySymbol, value: code) ?? code
+    }
+}
+
+
+
+struct VideoPlayerView: UIViewRepresentable {
+    let player: AVPlayer
+    
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.frame = view.bounds
+        playerLayer.contentsGravity = .resizeAspectFill
+        view.layer.addSublayer(playerLayer)
+        
+        // Update player layer on layout changes
+        DispatchQueue.main.async {
+            playerLayer.frame = view.bounds
+        }
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if let playerLayer = uiView.layer.sublayers?.first as? AVPlayerLayer {
+            playerLayer.frame = uiView.bounds
+        }
+    }
+}
+
+// Custom Cell
+struct CustomCell: View {
+    let text: String
+    let description: String
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.green)
+                        .font(.title3)
+                        .frame(width: 20)
+                    Text(text)
+                        .font(.headline)
+                        .padding(.bottom, 2)
+                }
+                Text(description)
+                    .padding(.horizontal, 28)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(.horizontal, 10)
+    }
+}
+
+// Subscription Pack View
+struct SubscriptionPack: View {
+    let title: String
+    let price: String
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.subheadline)
+                    Text(price)
+                        .font(.headline)
+                }
+                .padding()
+                
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.white)
+                        .font(.title2)
+                } else {
+                    Image(systemName: "circle")
+                        .foregroundColor(.gray)
+                        .font(.title2)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: 100)
+            .background(Color.clear)
+            .overlay(RoundedRectangle(cornerRadius: 12)
+                .stroke(isSelected ? Color.white : Color.gray, lineWidth: 4))
+            .cornerRadius(12)
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal, 12)
+    }
+}
+
+
+struct PaywallIntoView_Previews: PreviewProvider {
+    static var previews: some View {
+        PaywallView(hidePaywallIntro: .constant(true))
+            .previewDevice("iPhone 14 Pro Max")
+    }
+}
