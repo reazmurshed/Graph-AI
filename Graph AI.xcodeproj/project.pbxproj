@@ -40,6 +40,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ORIGINAL.mp4,
+				Views/OnboardingView.swift,
 			);
 			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;
 		};

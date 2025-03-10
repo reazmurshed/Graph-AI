@@ -117,9 +117,12 @@ struct ContentView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showingCamera) {
-                CameraView()
-                    .interactiveDismissDisabled(true)
+//            .sheet(isPresented: $showingCamera) {
+//                CameraView()
+//                    .interactiveDismissDisabled(true)
+//            }
+            .fullScreenCover(isPresented: $showingCamera) {
+                OnboardingView(shouldShowView: $showingCamera)
             }
             .sheet(isPresented: $showingMenu) {
                 MenuView()
