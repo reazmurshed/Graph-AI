@@ -21,6 +21,14 @@ struct TradingStyle: Identifiable {
     let icon: String
 }
 
+struct ConversationItem: Identifiable {
+    let id = UUID()
+    let comment: String
+    let userName: String
+    let rating: Int
+    let iconName: String
+}
+
 struct ContentItem: Identifiable {
     let id = UUID()
     let title: String
@@ -28,13 +36,23 @@ struct ContentItem: Identifiable {
     let options: [String]?
     let showGraph: Bool
     let description: String?
+    let commentItems: [ConversationItem]?
+    
+    init(title: String, subtitle: String?, options: [String]?, showGraph: Bool, description: String?, commentItems: [ConversationItem]? = nil) {
+        self.title = title
+        self.subtitle = subtitle
+        self.options = options
+        self.showGraph = showGraph
+        self.description = description
+        self.commentItems = commentItems
+    }
 }
 
 struct OnboardingView: View {
     @State private var step: Int = 0
     @State private var selectedOption: String? = nil
     @Binding var shouldShowView: Bool
-    private let totalSteps = 6
+    private let totalSteps = 7
     
     //MARK: - Content Data
     private let content:
@@ -67,9 +85,18 @@ struct OnboardingView: View {
             options:["Simple", "Medium", "Deep Dive"], showGraph:false, description:nil
             ),
         ContentItem(
+            title:"Chart AI Was Made for People Like You",
+            subtitle:"+1000 Chart AI People", options:nil,
+            showGraph:false, description:nil
+            ),
+        ContentItem(
             title:"Find High-Quality Setups 5X Faster With Chart AI vs on Your Own.",
             subtitle:"Chart AI makes it fast, easy, and expert-level precise.", options:nil,
-            showGraph:false, description:nil
+            showGraph:false, description:nil, commentItems: [
+                ConversationItem(comment: "Trading felt like gambling before. Now, I have a plan for every chart, and I'm seeing real, steady growth over time. Game Changer", userName: "Chris M.", rating: 5, iconName: "profile_1"),
+                ConversationItem(comment: "This App helped me spot setups I would've completely missed on my own. It's like having an expert guide every time I trade.", userName: "Emily S.", rating: 5, iconName: "profile_2"),
+                ConversationItem(comment: "It's not just about winning a trade here and there, it's about being profitable long-term. Chart Al finally helped me get there.", userName: "Alex P.", rating: 5, iconName: "profile_3")
+            ]
             ),
         ]
 
@@ -90,6 +117,46 @@ struct OnboardingView: View {
             name: "Swing Trading",
             description: "Holding positions for days to weeks", icon: "🐌"),
     ]
+    
+    func getConversationItemView() -> some View {
+        VStack() {
+            if step == 6, let items = content[step].commentItems {
+                ForEach(items, id: \.id) { item in
+                    VStack {
+                        HStack(alignment:.center) {
+                            Image(item.iconName)
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipShape(Circle())
+                            Text(item.userName)
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                            ForEach(0..<item.rating) { _ in
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                    .foregroundColor(.green)
+                            }
+                            Spacer()
+                        }
+                        Text(item.comment)
+                            .foregroundColor(.white)
+                            .font(.body)
+//                            .multilineTextAlignment(.leading)
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .fixedSize(horizontal: false, vertical: true)
+//                            .frame(height: 120)
+                    }
+                    .frame(height: 140)
+                    .padding(12)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(12)
+                }
+            }
+        }
+        
+        
+    }
 
     var body: some View {
         VStack {
@@ -135,7 +202,17 @@ struct OnboardingView: View {
                                 .bold()
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                            
+                            if step == 6 {
+                                HStack(spacing:-10) {
+                                    ForEach(0..<3) { index in
+                                        Image("profile_\(index+1)")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .clipShape(Circle())
+                                    }
+                                }.padding(.top,20)
+                                
+                            }
                             if let subtitle = content[step].subtitle {
                                 Text(subtitle)
                                     .font(.title3)
@@ -320,6 +397,8 @@ struct OnboardingView: View {
                             .cornerRadius(12)
                             .padding(.vertical, 20)
                         }
+                        
+                        getConversationItemView()
                     }
                     .padding()
 
