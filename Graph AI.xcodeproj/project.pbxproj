@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 6AFC2A852D7C635800B16ED5 /* RevenueCat */; };
+		71BBECC92D809F4800D31C4A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 71BBECC82D809F4800D31C4A /* Lottie */; };
 		71D9A22A2D80183E000D8639 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				all_done.gif,
+				confetti.json,
 				ORIGINAL.mp4,
 				Views/OnboardingView.swift,
 			);
@@ -115,6 +117,7 @@
 			files = (
 				71D9A22A2D80183E000D8639 /* SDWebImageSwiftUI in Frameworks */,
 				6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */,
+				71BBECC92D809F4800D31C4A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +237,7 @@
 			packageProductDependencies = (
 				6AFC2A852D7C635800B16ED5 /* RevenueCat */,
 				71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */,
+				71BBECC82D809F4800D31C4A /* Lottie */,
 			);
 			productName = "Graph AI";
 			productReference = 84D9B4202D747E9C000925E7 /* Graph AI.app */;
@@ -329,6 +333,7 @@
 			packageReferences = (
 				6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 				71D9A1202D80172C000D8639 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				71BBECC72D809F3C00D31C4A /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 84C867C72D66D40400393461 /* Products */;
@@ -829,6 +834,14 @@
 				minimumVersion = 5.19.0;
 			};
 		};
+		71BBECC72D809F3C00D31C4A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
 		71D9A1202D80172C000D8639 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -844,6 +857,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCat;
+		};
+		71BBECC82D809F4800D31C4A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71BBECC72D809F3C00D31C4A /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 		71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

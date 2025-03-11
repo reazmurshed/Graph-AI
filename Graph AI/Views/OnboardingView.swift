@@ -6,8 +6,9 @@
 //
 
 import Charts
-import SwiftUI
 import SDWebImageSwiftUI
+import SwiftUI
+import AVFoundation
 
 struct ProfitData: Identifiable {
     let id = UUID()
@@ -63,7 +64,31 @@ struct OnboardingView: View {
     @State private var step: Int = 0
     @State private var selectedOption: String? = nil
     @Binding var shouldShowView: Bool
-    private let totalSteps = 9
+    private let totalSteps = 13
+    var player: AVPlayer {
+        if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
+            let player = AVPlayer(url: url)
+            player.actionAtItemEnd = .none
+            
+            // Looping logic: Observe when the video finishes and restart
+            NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { _ in
+                //playingVideo = false
+                player.seek(to: .zero)
+                player.play()
+            }
+            print("found video URL")
+            player.play()
+            return player
+        } else {
+            print("Can't find video URL")
+        }
+        
+        return AVPlayer()
+    }
 
     //MARK: - Content Data
     let chartBIData: [ProfitablityItem] = [
@@ -81,6 +106,13 @@ struct OnboardingView: View {
         ProfitablityItem(title: "Trading Gurus", month: "Month 6", value: 0),
     ]
     private let content: [ContentItem] = [
+        ContentItem(
+            title: "Find Winning Trades with a Photo.",
+            subtitle: nil,
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
         ContentItem(
             title: "Which market do you focus on?",
             subtitle: "This will be used to customize your chart analysis.",
@@ -152,6 +184,35 @@ struct OnboardingView: View {
             showGraph: false,
             description: nil
         ),
+        ContentItem(
+            title: "Your Custom AI Chart Assistant is Ready!",
+            subtitle:
+                "Let's run your first chart analysis to see how it works.You can create custom scans later!",
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
+        ContentItem(
+            title: "Your Custom AI Chart Assistant is Ready!",
+            subtitle: nil,
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
+        ContentItem(
+            title: "First Custom AI Chart Analysis!",
+            subtitle: nil,
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
+        ContentItem(
+            title: "You're now ready to turn your charts into cash!",
+            subtitle: nil,
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
     ]
 
     private let profitData: [ProfitData] = [
@@ -174,12 +235,12 @@ struct OnboardingView: View {
     // MARK: - UI Components
     func profitabilityGraphView() -> some View {
         LazyVStack {
-            if step == 7 {
+            if step == 8 {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Your Profitability")
                         .font(.title)
                         .foregroundColor(.white)
-                    VStack(alignment: .leading,spacing: 3) {
+                    VStack(alignment: .leading, spacing: 3) {
                         HStack {
                             Circle()
                                 .fill(Color.blue)  // Legend color (default is automatic)
@@ -188,7 +249,7 @@ struct OnboardingView: View {
                                 .foregroundColor(.white)  // Change text to white
                                 .font(.headline)
                         }
-                        
+
                         HStack {
                             Circle()
                                 .fill(Color.green)  // Legend color (default is automatic)
@@ -226,25 +287,7 @@ struct OnboardingView: View {
                         }
                     }
                     .foregroundColor(.white)
-                    .chartLegend(.hidden) // Moves legend to top
-                    //                    .chartLegend {
-                    //                        VStack(spacing: 3) {
-                    //                            ForEach(
-                    //                                ["Chart AI", "Trading Gurus"],
-                    //                                id: \.self
-                    //                            ) { title in
-                    //                                HStack {
-                    //                                    Circle()
-                    //                                        .fill(Color.white)  // Legend color (default is automatic)
-                    //                                        .frame(width: 10, height: 10)
-                    //                                    Text(title)
-                    //                                        .foregroundColor(.white)  // Change text to white
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                    }
-
-                    //                    .chartLegendSpacing(8)  // Adds spacing for better layout
+                    .chartLegend(.hidden)  // Moves legend to top
 
                     Text(
                         "80% of Chart Al users achieve long-term profitability."
@@ -264,7 +307,7 @@ struct OnboardingView: View {
 
     func getConversationItemView() -> some View {
         LazyVStack(spacing: 10) {
-            if step == 6, let items = content[step].commentItems {
+            if step == 7, let items = content[step].commentItems {
                 ForEach(items, id: \.id) { item in
                     LazyVStack(alignment: .leading, spacing: 8) {
                         LazyHStack(alignment: .center, spacing: 8) {
@@ -320,16 +363,31 @@ struct OnboardingView: View {
                     .padding()
 
             }
-            ProgressView(value: Double(step + 1), total: Double(totalSteps))
-                .tint(.green)
-                .frame(maxWidth: .infinity)
+            if step < 8 {
+                ProgressView(value: Double(step + 1), total: Double(totalSteps))
+                    .tint(.green)
+                    .frame(maxWidth: .infinity)
+            } else {
+                Spacer()
+            }
         }
         .padding(.horizontal)
+    }
+    
+    func twelveStepView() -> some View {
+        ZStack {
+            if step == 13 {
+                LottieView(name: "confetti", loopMode: .loop)
+                    .frame(width: 300, height: 300, alignment: .center)
+                
+            }
+        }
+        
     }
 
     func titleAndSubTitleView() -> some View {
         LazyVStack(spacing: 10) {
-            if step == 8 {
+            if step == 9 || step == 13 {
                 Spacer()
                 HStack {
                     Image(systemName: "checkmark.circle.fill")
@@ -346,7 +404,7 @@ struct OnboardingView: View {
                 .bold()
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-            if step == 6 {
+            if step == 7 {
                 LazyHStack(spacing: -10) {
                     ForEach(0..<3) { index in
                         Image("profile_\(index+1)")
@@ -363,13 +421,13 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
             }
-            if step == 8 {
+            if step == 9 {
                 AnimatedImage(name: "all_done.gif")
-                               .resizable()
-                               .scaledToFit()
-                               .frame(width: 200, height: 200)
-                               .background(Color.clear)
-                    
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .background(Color.clear)
+
             }
         }.padding(.horizontal, 16)
     }
@@ -456,7 +514,7 @@ struct OnboardingView: View {
 
     func fourthScreenTradingView() -> some View {
         VStack {
-            if step == 3 {
+            if step == 4 {
                 VStack(spacing: 10) {
                     Spacer()
                     ForEach(tradingStyles) { style in
@@ -507,7 +565,7 @@ struct OnboardingView: View {
 
     func fifthScreenChartAIView() -> some View {
         LazyVStack {
-            if step == 5 {
+            if step == 6 {
                 LazyVStack(spacing: 10) {
                     LazyHStack(spacing: 10) {
                         // Without Chart AI
@@ -571,6 +629,146 @@ struct OnboardingView: View {
         }
     }
 
+    func tenthScreenContentShrimerView() -> some View {
+        VStack {
+            if step == 11 {
+                Image("analyzed_icon")  // Replace with actual image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .shadow(radius: 10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [.purple, .orange],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing), lineWidth: 4)
+                    )
+                    .padding()
+
+                VStack(spacing: 10) {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 80)
+                        .shimmer()
+
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 80)
+                        .shimmer()
+
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(height: 80)
+                        .shimmer()
+                }
+                .padding(.horizontal)
+
+                Spacer()
+            }
+
+        }
+    }
+
+    func ninthStepView() -> some View {
+        HStack(alignment: .center) {
+            if step == 10 {
+                Spacer()
+                Image("analyzed_icon")  // Replace with actual image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                Spacer()
+            }
+        }
+    }
+
+    func eleventhStepView() -> some View {
+        VStack(spacing: 16) {
+            if step == 12 {
+                // Key Insights Card
+                VStack(alignment: .center, spacing: 12) {
+                    Text("Key Insights")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+
+                    HStack {
+                        InsightOptionItem(
+                            icon: "chart.line.uptrend.xyaxis", title: "Trend",
+                            value: "Bullish", color: .green)
+                        Spacer()
+                        InsightOptionItem(
+                            icon: "chart.bar.doc.horizontal",
+                            title: "Volatility", value: "Medium", color: .orange
+                        )
+                    }
+
+                    HStack {
+                        ProgressItem(
+                            title: "Volume", value: "High", progress: 0.7,
+                            color: .pink)
+                        Spacer()
+                        ProgressItem(
+                            title: "Market Sentiment", value: "Neutral",
+                            progress: 0.4, color: .gray)
+                    }
+                }
+                .padding()
+                .background(Color.gray.opacity(0.3))
+                .cornerRadius(12)
+
+                // Game Plan Card
+                VStack(alignment: .center, spacing: 8) {
+                    Text("Game Plan")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+
+                    Text(
+                        "Bitcoin is currently priced at around **$98,218** and showing strong bullish momentum with high volume, indicating growing interest. My trading plan is to enter a long position near **$97,500**, place a stop-loss just below the recent support at **$95,000**, and aim for a target of **$105,000**, which lines up with previous resistance levels."
+                    )
+                    .font(.body)
+                    .foregroundColor(.gray)
+                }
+                .padding()
+                .background(Color.gray.opacity(0.3))
+                .cornerRadius(12)
+                
+                DetailedAnalysisView()
+
+                Spacer()
+            }
+        }
+    }
+    
+    func initialVideoView() -> some View {
+        VStack {
+            if step == 0 {
+                
+                // Permium Features Section
+                VStack(alignment: .leading, spacing: 16) {
+                    VideoPlayerView(player: player)
+                        .onAppear {
+                            player.play()
+                        }
+                        .onDisappear {
+                            player.pause()
+                        }
+                        .frame(height: 400)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(12)
+//                        .edgesIgnoringSafeArea(.all)
+                }
+                .padding(.top, 5)
+                .padding(.bottom, 5)
+            }
+        }
+    }
+
     //MARK: - Main UI Body
     var body: some View {
         VStack {
@@ -581,11 +779,15 @@ struct OnboardingView: View {
                 // MARK: - Title & Subtitle
                 if step < content.count {
                     VStack(alignment: .leading, spacing: 10) {
-                        titleAndSubTitleView()
-//                        Spacer()
+                        ZStack {
+                            titleAndSubTitleView()
+                            twelveStepView()
+                        }
+                        initialVideoView()
+                        //                        Spacer()
                         // MARK: - List Items (For First Two Screens)
                         contentOptionListView()
-//                        Spacer()
+                        //                        Spacer()
                         //MARK: - Show Graph (For Third Screen)
                         thirdScreenContentGraphView()
 
@@ -597,6 +799,9 @@ struct OnboardingView: View {
 
                         getConversationItemView()
                         profitabilityGraphView()
+                        ninthStepView()
+                        tenthScreenContentShrimerView()
+                        eleventhStepView()
                     }
                     .padding()
 
@@ -607,20 +812,33 @@ struct OnboardingView: View {
             //MARK: - Next Button
             Button(action: {
                 withAnimation {
+                    player.pause()
+                    if step == 13 {
+                        shouldShowView.toggle()
+                    }
                     if step < content.count - 1 {
                         step += 1
                         selectedOption = nil
                     }
+                    if step == 9 || step == 11 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            if step < content.count - 1 {
+                                step += 1
+                                selectedOption = nil
+                            }
+                        }
+                    }
+                    
                 }
 
             }) {
-                Text("Next")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .foregroundColor(
-                        (content[step].options == nil || selectedOption != nil)
-                            ? Color.white : Color.white.opacity(0.5))
-
+                if step == 9 {
+                    customizedText("Analyze Chart")
+                } else if step == 13 {
+                    customizedText("Get Started")
+                } else {
+                    customizedText("Next")
+                }
             }
             .background(
                 (content[step].options == nil || selectedOption != nil)
@@ -629,9 +847,19 @@ struct OnboardingView: View {
             .cornerRadius(10)
             .padding()
             .disabled(content[step].options != nil && selectedOption == nil)
+            .opacity((step == 9 || step == 11) ? 0 : 1)
         }
         //        .animation(.easeInOut, value: step)
         .background(Color.black.edgesIgnoringSafeArea(.all))
+    }
+    
+    func customizedText(_ text: String) -> some View {
+        Text(text)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .foregroundColor(
+                (content[step].options == nil || selectedOption != nil)
+                    ? Color.white : Color.white.opacity(0.5))
     }
 }
 
