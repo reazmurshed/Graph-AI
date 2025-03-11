@@ -7,6 +7,7 @@
 
 import Charts
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProfitData: Identifiable {
     let id = UUID()
@@ -51,20 +52,33 @@ struct ContentItem: Identifiable {
     }
 }
 
+struct ProfitablityItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let month: String
+    let value: Int
+}
+
 struct OnboardingView: View {
     @State private var step: Int = 0
     @State private var selectedOption: String? = nil
     @Binding var shouldShowView: Bool
-    private let totalSteps = 8
+    private let totalSteps = 9
 
     //MARK: - Content Data
-    let chartAIData: [(String, Double)] = [
-        ("Month 1", 0), ("Month 2", 10), ("Month 3", 12), ("Month 4", 13),
-        ("Month 5", 17), ("Month 6", 25),
-    ]
-    let tradingGurusData: [(String, Double)] = [
-        ("Month 1", 0), ("Month 2", 12), ("Month 3", 0), ("Month 4", 12),
-        ("Month 5", 8), ("Month 6", 0),
+    let chartBIData: [ProfitablityItem] = [
+        ProfitablityItem(title: "Chart AI", month: "Month 1", value: 0),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 1", value: 0),
+        ProfitablityItem(title: "Chart AI", month: "Month 2", value: 10),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 2", value: 8),
+        ProfitablityItem(title: "Chart AI", month: "Month 3", value: 13),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 3", value: 16),
+        ProfitablityItem(title: "Chart AI", month: "Month 4", value: 16),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 4", value: 13),
+        ProfitablityItem(title: "Chart AI", month: "Month 5", value: 18),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 5", value: 9),
+        ProfitablityItem(title: "Chart AI", month: "Month 6", value: 20),
+        ProfitablityItem(title: "Trading Gurus", month: "Month 6", value: 0),
     ]
     private let content: [ContentItem] = [
         ContentItem(
@@ -131,6 +145,13 @@ struct OnboardingView: View {
             subtitle: nil, options: nil,
             showGraph: false, description: nil
         ),
+        ContentItem(
+            title: "We're setting up your personalized AI chart assistant.",
+            subtitle: nil,
+            options: nil,
+            showGraph: false,
+            description: nil
+        ),
     ]
 
     private let profitData: [ProfitData] = [
@@ -152,28 +173,79 @@ struct OnboardingView: View {
     ]
     // MARK: - UI Components
     func profitabilityGraphView() -> some View {
-        VStack {
+        LazyVStack {
             if step == 7 {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("Your Profitability")
                         .font(.title)
                         .foregroundColor(.white)
-                    Chart {
-                        ForEach(chartAIData, id: \.0) { data in
-                            LineMark(
-                                x: .value("Month", data.0),
-                                y: .value("Profitability", data.1)
-                            )
-                            .foregroundStyle(.green)
+                    VStack(alignment: .leading,spacing: 3) {
+                        HStack {
+                            Circle()
+                                .fill(Color.blue)  // Legend color (default is automatic)
+                                .frame(width: 6, height: 6)
+                            Text("Chart AI")
+                                .foregroundColor(.white)  // Change text to white
+                                .font(.headline)
                         }
-                        ForEach(tradingGurusData, id: \.0) { data in
-                            LineMark(
-                                x: .value("Month", data.0),
-                                y: .value("Profitability", data.1)
-                            )
-                            .foregroundStyle(.pink)
+                        
+                        HStack {
+                            Circle()
+                                .fill(Color.green)  // Legend color (default is automatic)
+                                .frame(width: 6, height: 6)
+                            Text("Trading Gurus")
+                                .foregroundColor(.white)  // Change text to white
+                                .font(.headline)
                         }
                     }
+
+                    Chart {
+                        ForEach(chartBIData, id: \.id) { data in
+                            LineMark(
+                                x: .value("Month", data.month),
+                                y: .value("Profitability", data.value)
+                            )
+                            .foregroundStyle(by: .value("title", data.title))
+
+                        }
+                    }
+                    .chartXAxis {
+                        AxisMarks {
+                            AxisGridLine()
+                                .foregroundStyle(.white.opacity(0.5))  // Optional grid line color
+                            AxisTick()
+                                .foregroundStyle(.white)
+                            AxisValueLabel()
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .chartYAxis {
+                        AxisMarks {
+                            AxisValueLabel()
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .foregroundColor(.white)
+                    .chartLegend(.hidden) // Moves legend to top
+                    //                    .chartLegend {
+                    //                        VStack(spacing: 3) {
+                    //                            ForEach(
+                    //                                ["Chart AI", "Trading Gurus"],
+                    //                                id: \.self
+                    //                            ) { title in
+                    //                                HStack {
+                    //                                    Circle()
+                    //                                        .fill(Color.white)  // Legend color (default is automatic)
+                    //                                        .frame(width: 10, height: 10)
+                    //                                    Text(title)
+                    //                                        .foregroundColor(.white)  // Change text to white
+                    //                                }
+                    //                            }
+                    //                        }
+                    //                    }
+
+                    //                    .chartLegendSpacing(8)  // Adds spacing for better layout
+
                     Text(
                         "80% of Chart Al users achieve long-term profitability."
                     )
@@ -181,7 +253,7 @@ struct OnboardingView: View {
                     .foregroundStyle(.gray.opacity(0.8))
                     .padding(.top, 8)
                 }
-                .frame(height: 240)
+                .frame(height: 300)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(12)
@@ -189,42 +261,47 @@ struct OnboardingView: View {
 
         }
     }
-    
+
     func getConversationItemView() -> some View {
-        VStack {
+        LazyVStack(spacing: 10) {
             if step == 6, let items = content[step].commentItems {
                 ForEach(items, id: \.id) { item in
-                    VStack {
-                        HStack(alignment: .center) {
+                    LazyVStack(alignment: .leading, spacing: 8) {
+                        LazyHStack(alignment: .center, spacing: 8) {
                             Image(item.iconName)
                                 .resizable()
                                 .frame(width: 30, height: 30)
                                 .clipShape(Circle())
+
                             Text(item.userName)
                                 .font(.subheadline)
                                 .foregroundColor(.white)
-                            ForEach(0..<item.rating) { _ in
-                                Image(systemName: "star.fill")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .foregroundColor(.green)
+
+                            LazyHStack(spacing: 2) {
+                                ForEach(0..<item.rating, id: \.self) { _ in
+                                    Image(systemName: "star.fill")
+                                        .resizable()
+                                        .frame(width: 15, height: 15)
+                                        .foregroundColor(.green)
+                                }
                             }
                             Spacer()
                         }
+
                         Text(item.comment)
                             .foregroundColor(.white)
                             .font(.body)
-                            .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(height: 120)
+                            .frame(minHeight: 120, maxHeight: .infinity)
                     }
                     //                    .frame(height: 140)
                     .padding(12)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.gray.opacity(0.2)))
                 }
             }
+
         }
 
     }
@@ -249,16 +326,28 @@ struct OnboardingView: View {
         }
         .padding(.horizontal)
     }
-    
+
     func titleAndSubTitleView() -> some View {
-        VStack(spacing: 10) {
+        LazyVStack(spacing: 10) {
+            if step == 8 {
+                Spacer()
+                HStack {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(.green)
+                    Text("All done!")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white.opacity(0.8))
+                }
+            }
             Text(content[step].title)
                 .font(.largeTitle)
                 .bold()
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
             if step == 6 {
-                HStack(spacing: -10) {
+                LazyHStack(spacing: -10) {
                     ForEach(0..<3) { index in
                         Image("profile_\(index+1)")
                             .resizable()
@@ -266,7 +355,6 @@ struct OnboardingView: View {
                             .clipShape(Circle())
                     }
                 }.padding(.top, 20)
-
             }
             if let subtitle = content[step].subtitle {
                 Text(subtitle)
@@ -275,11 +363,19 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
             }
+            if step == 8 {
+                AnimatedImage(name: "all_done.gif")
+                               .resizable()
+                               .scaledToFit()
+                               .frame(width: 200, height: 200)
+                               .background(Color.clear)
+                    
+            }
         }.padding(.horizontal, 16)
     }
-    
+
     func contentOptionListView() -> some View {
-        VStack {
+        LazyVStack {
             if let options = content[step].options {
                 ForEach(options, id: \.self) { option in
                     Button(action: {
@@ -306,9 +402,9 @@ struct OnboardingView: View {
             }
         }
     }
-    
+
     func thirdScreenContentGraphView() -> some View {
-        VStack {
+        LazyVStack {
             if content[step].showGraph {
                 Chart {
                     // Gradient Fill Under the Line
@@ -357,7 +453,7 @@ struct OnboardingView: View {
             }
         }
     }
-    
+
     func fourthScreenTradingView() -> some View {
         VStack {
             if step == 3 {
@@ -408,12 +504,12 @@ struct OnboardingView: View {
             }
         }
     }
-    
+
     func fifthScreenChartAIView() -> some View {
-        VStack {
+        LazyVStack {
             if step == 5 {
-                VStack(spacing: 10) {
-                    HStack(spacing: 10) {
+                LazyVStack(spacing: 10) {
+                    LazyHStack(spacing: 10) {
                         // Without Chart AI
                         VStack {
                             Spacer()
@@ -486,13 +582,13 @@ struct OnboardingView: View {
                 if step < content.count {
                     VStack(alignment: .leading, spacing: 10) {
                         titleAndSubTitleView()
-                        Spacer()
+//                        Spacer()
                         // MARK: - List Items (For First Two Screens)
                         contentOptionListView()
-                        Spacer()
+//                        Spacer()
                         //MARK: - Show Graph (For Third Screen)
                         thirdScreenContentGraphView()
-                        
+
                         //MARK: - Trading Style Selection (For Fourth Screen)
                         fourthScreenTradingView()
 

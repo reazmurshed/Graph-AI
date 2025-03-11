@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 6AFC2A852D7C635800B16ED5 /* RevenueCat */; };
+		71D9A22A2D80183E000D8639 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		6AFC2A942D7CB22800B16ED5 /* Exceptions for "Graph AI" folder in "Graph AI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				all_done.gif,
 				ORIGINAL.mp4,
 				Views/OnboardingView.swift,
 			);
@@ -111,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71D9A22A2D80183E000D8639 /* SDWebImageSwiftUI in Frameworks */,
 				6AFC2A862D7C635800B16ED5 /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,6 +233,7 @@
 			name = "Graph AI";
 			packageProductDependencies = (
 				6AFC2A852D7C635800B16ED5 /* RevenueCat */,
+				71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */,
 			);
 			productName = "Graph AI";
 			productReference = 84D9B4202D747E9C000925E7 /* Graph AI.app */;
@@ -324,6 +328,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+				71D9A1202D80172C000D8639 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 84C867C72D66D40400393461 /* Products */;
@@ -824,6 +829,14 @@
 				minimumVersion = 5.19.0;
 			};
 		};
+		71D9A1202D80172C000D8639 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -831,6 +844,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AFC2A842D7C635800B16ED5 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCat;
+		};
+		71D9A2292D80183E000D8639 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71D9A1202D80172C000D8639 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
