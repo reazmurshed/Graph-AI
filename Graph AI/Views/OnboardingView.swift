@@ -445,15 +445,14 @@ struct OnboardingView: View {
                                 selectedOption == option
                                     ? Color.black : Color.white
                             )
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: 60)
                             .padding(24)
                             .background(
                                 selectedOption == option
                                     ? Color.white.opacity(0.9)
                                     : Color.gray.opacity(0.4)
                             )
-                            .cornerRadius(10)
-
+                            .cornerRadius(20)
                     }
                 }
             }
@@ -650,17 +649,17 @@ struct OnboardingView: View {
                 VStack(spacing: 10) {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.3))
-                        .frame(height: 80)
+                        .frame(height: 60)
                         .shimmer()
 
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.3))
-                        .frame(height: 80)
+                        .frame(height: 60)
                         .shimmer()
 
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.3))
-                        .frame(height: 80)
+                        .frame(height: 60)
                         .shimmer()
                 }
                 .padding(.horizontal)
@@ -807,7 +806,7 @@ struct OnboardingView: View {
                     }
                 }
             }
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
 
             //MARK: - Next Button
             Button(action: {
@@ -844,8 +843,7 @@ struct OnboardingView: View {
                 (content[step].options == nil || selectedOption != nil)
                     ? Color.green : Color.green.opacity(0.5)
             )
-            .frame(height: 60)
-            .cornerRadius(10)
+            .cornerRadius(20)
             .padding()
             .disabled(content[step].options != nil && selectedOption == nil)
             .opacity((step == 9 || step == 11) ? 0 : 1)
@@ -855,8 +853,8 @@ struct OnboardingView: View {
     
     func customizedText(_ text: String) -> some View {
         Text(text)
-            .frame(maxWidth: .infinity)
-            .padding()
+            .frame(maxWidth: .infinity, maxHeight: 80)
+            .cornerRadius(20)
             .foregroundColor(
                 (content[step].options == nil || selectedOption != nil)
                     ? Color.white : Color.white.opacity(0.5))
