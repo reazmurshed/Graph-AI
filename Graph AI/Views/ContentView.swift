@@ -10,7 +10,8 @@ struct ContentView: View {
     @State private var buttonScale: CGFloat = 1.0
     @StateObject private var backgroundManager = BackgroundManager.shared
     @State private var showingSubscriptionPromo = false
-    
+    @State private var showingOnboardingScreen = false
+
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -140,7 +141,13 @@ struct ContentView: View {
         .fullScreenCover(isPresented: $showingSubscriptionPromo) {
             SubscriptionPromoView()
         }
-         */
+        */
+        .onAppear {
+            showingOnboardingScreen = !UserDefaults.standard.bool(forKey: Constants.UserDefaultsKey.alreadyOnboarded)
+        }
+        .fullScreenCover(isPresented: $showingOnboardingScreen) {
+            OnboardingView(shouldShowView: $showingOnboardingScreen)
+        }
     }
 }
 
