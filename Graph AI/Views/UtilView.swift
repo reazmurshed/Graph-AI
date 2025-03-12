@@ -6,36 +6,7 @@
 //
 import SwiftUI
 import Lottie
-
-struct ShimmerEffect: ViewModifier {
-    @State private var phase: CGFloat = 0.0
-
-    func body(content: Content) -> some View {
-        content
-            .overlay(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.white.opacity(0.4), Color.white.opacity(0.1), Color.white.opacity(0.4)]),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                )
-                .blendMode(.overlay)
-                .mask(content)
-                .offset(x: phase)
-            )
-            .onAppear {
-                withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
-                    phase = 200
-                }
-            }
-    }
-}
-
-extension View {
-    func shimmer() -> some View {
-        self.modifier(ShimmerEffect())
-    }
-}
-
+import Shimmer
 
 // Insight Item View
 struct InsightOptionItem: View {
@@ -58,6 +29,42 @@ struct InsightOptionItem: View {
                     .foregroundColor(.white)
             }
         }
+    }
+}
+
+struct PlaceholderCardView: View {
+    var body: some View {
+        VStack(alignment:.leading, spacing: 4) {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.gray)
+                .frame(height: 20)
+                .redacted(reason: .placeholder)
+                .shimmering()
+            
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.gray)
+                .frame(height: 20)
+                .redacted(reason: .placeholder)
+                .shimmering()
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.gray)
+                .frame(height: 20)
+                .redacted(reason: .placeholder)
+                .shimmering()
+            HStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray)
+                    .frame(width: UIScreen.main.bounds.width * 0.4,height: 20)
+                    .redacted(reason: .placeholder)
+                    .shimmering()
+                Spacer()
+            }
+        }
+        .padding()
+        .background(Color.gray.opacity(0.3))
+        .cornerRadius(12)
+        .padding(.vertical, 8)
+        
     }
 }
 

@@ -9,6 +9,7 @@ import Charts
 import SDWebImageSwiftUI
 import SwiftUI
 import AVFoundation
+import Shimmer
 
 struct ProfitData: Identifiable {
     let id = UUID()
@@ -627,40 +628,29 @@ struct OnboardingView: View {
         }
     }
 
-    func tenthScreenContentShrimerView() -> some View {
+    func tenthScreenContentShimmerView() -> some View {
         VStack {
             if step == 11 {
                 Image("analyzed_icon")  // Replace with actual image
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 180)
+                    .frame(width: 180, height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .shadow(radius: 10)
+                    .shadow(radius: 12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(
                                 LinearGradient(
                                     colors: [.purple, .orange],
                                     startPoint: .topLeading,
-                                    endPoint: .bottomTrailing), lineWidth: 4)
+                                    endPoint: .bottomTrailing), lineWidth: 6)
                     )
                     .padding()
 
                 VStack(spacing: 10) {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 60)
-                        .shimmer()
-
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 60)
-                        .shimmer()
-
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(height: 60)
-                        .shimmer()
+                    ForEach(0..<3) { _ in
+                        PlaceholderCardView()
+                    }
                 }
                 .padding(.horizontal)
 
@@ -756,8 +746,9 @@ struct OnboardingView: View {
                         .onDisappear {
                             player.pause()
                         }
-                        .frame(height: 400, alignment: .bottom)
+                        .frame(height: 450, alignment: .bottom)
                         .frame(maxWidth: .infinity)
+                        .cornerRadius(12)
                 }
             }
         }
@@ -801,7 +792,7 @@ struct OnboardingView: View {
                         getConversationItemView()
                         profitabilityGraphView()
                         ninthStepView()
-                        tenthScreenContentShrimerView()
+                        tenthScreenContentShimmerView()
                         eleventhStepView()
                     }
                 }
@@ -820,7 +811,7 @@ struct OnboardingView: View {
                         selectedOption = nil
                     }
                     if step == 9 || step == 11 {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                             if step < content.count - 1 {
                                 step += 1
                                 selectedOption = nil
