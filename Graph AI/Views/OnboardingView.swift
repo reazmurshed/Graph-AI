@@ -298,7 +298,7 @@ struct OnboardingView: View {
                 }
                 .frame(height: 300)
                 .padding()
-                .background(Color.gray.opacity(0.2))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
             }
 
@@ -341,7 +341,7 @@ struct OnboardingView: View {
                     .padding(12)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.2)))
+                            .fill(Color.gray.opacity(0.4)))
                 }
             }
 
@@ -358,7 +358,7 @@ struct OnboardingView: View {
                     .font(.title2)
                     .padding(10)
                     .foregroundStyle(.white)
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.4))
                     .clipShape(Circle())
                     .padding()
 
@@ -379,7 +379,6 @@ struct OnboardingView: View {
             if step == 13 {
                 LottieView(name: "confetti", loopMode: .loop)
                     .frame(width: 300, height: 300, alignment: .center)
-                
             }
         }
         
@@ -451,7 +450,7 @@ struct OnboardingView: View {
                             .background(
                                 selectedOption == option
                                     ? Color.white.opacity(0.9)
-                                    : Color.gray.opacity(0.1)
+                                    : Color.gray.opacity(0.4)
                             )
                             .cornerRadius(10)
 
@@ -498,7 +497,7 @@ struct OnboardingView: View {
                 }
                 .frame(height: 200)
                 .padding()
-                .background(Color.gray.opacity(0.1))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
 
                 //MARK: - Description Text
@@ -552,7 +551,7 @@ struct OnboardingView: View {
                             .background(
                                 selectedOption == style.name
                                     ? Color.white
-                                    : Color.gray.opacity(0.1)
+                                    : Color.gray.opacity(0.4)
                             )
                             .cornerRadius(15)
                         }
@@ -622,7 +621,7 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding(10)
                 }
-                .background(Color.gray.opacity(0.1))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
                 .padding(.vertical, 20)
             }
@@ -750,7 +749,7 @@ struct OnboardingView: View {
             if step == 0 {
                 
                 // Permium Features Section
-                VStack(alignment: .leading, spacing: 16) {
+                HStack(alignment: .bottom) {
                     VideoPlayerView(player: player)
                         .onAppear {
                             player.play()
@@ -758,35 +757,38 @@ struct OnboardingView: View {
                         .onDisappear {
                             player.pause()
                         }
-                        .frame(height: 400)
+                        .frame(height: 400, alignment: .bottom)
                         .frame(maxWidth: .infinity)
-                        .cornerRadius(12)
-//                        .edgesIgnoringSafeArea(.all)
                 }
-                .padding(.top, 5)
-                .padding(.bottom, 5)
             }
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, 5)
     }
 
     //MARK: - Main UI Body
     var body: some View {
         VStack {
             // Progress Bar & Back Button
-            topView()
+            if step > 0 {
+                topView()
+            } else {
+                Spacer()
+            }
             Spacer()
             ScrollView {
                 // MARK: - Title & Subtitle
                 if step < content.count {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading) {
                         ZStack {
                             titleAndSubTitleView()
                             twelveStepView()
                         }
-                        initialVideoView()
-                        //                        Spacer()
+                        initialVideoView().padding(10)
+
                         // MARK: - List Items (For First Two Screens)
-                        contentOptionListView()
+                        contentOptionListView().padding(10)
                         //                        Spacer()
                         //MARK: - Show Graph (For Third Screen)
                         thirdScreenContentGraphView()
@@ -803,11 +805,9 @@ struct OnboardingView: View {
                         tenthScreenContentShrimerView()
                         eleventhStepView()
                     }
-                    .padding()
-
                 }
             }
-            Spacer()
+            .padding(.bottom, 20)
 
             //MARK: - Next Button
             Button(action: {
@@ -844,12 +844,12 @@ struct OnboardingView: View {
                 (content[step].options == nil || selectedOption != nil)
                     ? Color.green : Color.green.opacity(0.5)
             )
+            .frame(height: 60)
             .cornerRadius(10)
             .padding()
             .disabled(content[step].options != nil && selectedOption == nil)
             .opacity((step == 9 || step == 11) ? 0 : 1)
         }
-        //        .animation(.easeInOut, value: step)
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
     
