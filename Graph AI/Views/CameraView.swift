@@ -56,7 +56,7 @@ struct CameraView: View {
                             // Buttons
                             VStack(spacing: 15) {
                                 Button(action: {
-                                    if subscriptionManager.trialStatus == .active {
+                                    if subscriptionManager.isSubscribed == true {
                                         if let image = viewModel.capturedImage {
                                             showingConfirmation = false
                                             Task {
@@ -167,7 +167,7 @@ struct CameraView: View {
             .navigationBarHidden(true)
         }
         .fullScreenCover(isPresented: $showingSubscriptionPromo) {
-            PaywallView(hidePaywallIntro: $showingSubscriptionPromo)
+            PaywallView()
             //SubscriptionPromoView()
         }
         .onChange(of: viewModel.analysis) { newAnalysis in

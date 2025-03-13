@@ -116,7 +116,7 @@ struct SubscriptionPromoView: View {
                 Spacer()
             }
         }.fullScreenCover(isPresented: $showingPaywallIntro) {
-            PaywallView(hidePaywallIntro: $showingPaywallIntro)
+            PaywallView()
         }
     }
 }

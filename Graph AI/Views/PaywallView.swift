@@ -11,9 +11,8 @@ import RevenueCat
 
 struct PaywallView: View {
     @State private var isYearlyChoosed = true
-    @State private var showingPaywall = false
     @State private var playingVideo = true
-    @Binding var hidePaywallIntro: Bool
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedPackage: Package? = PaywallHelper.shared.selectedPackage
     
     var player: AVPlayer {
@@ -69,7 +68,7 @@ struct PaywallView: View {
                 // Custom Back Button
                 HStack {
                     Button(action: {
-                        hidePaywallIntro = false
+                        dismiss()
                     }) {
                         HStack {
                             Image(systemName: "chevron.left")
@@ -147,7 +146,7 @@ struct PaywallView: View {
                             PaywallHelper.shared.purchase(package: package) { success in
                                 if success {
                                     print("Purchase Success...")
-                                    hidePaywallIntro = false
+                                    dismiss()
                                 } else {
                                     print("Failed to Purchase...")
                                 }
@@ -191,6 +190,8 @@ struct PaywallView: View {
                         print("Restore Purchase Tapped")
                         PaywallHelper.shared.restorePurchases { success in
                             if success {
+                                SubscriptionManager.shared.isSubscribed = success
+                                dismiss()
                                 print("Restore Purchases Success")
                             } else {
                                 print("Restore Purchases Failed")
@@ -212,7 +213,7 @@ struct PaywallView: View {
         guard !playingVideo else {
             return "Continue"
         }
-        guard let package = selectedPackage else {
+        guard selectedPackage != nil else {
             return playingVideo ? "Continue" : "Unlock"
         }
         if hasFreeTrial() {
@@ -424,7 +425,7 @@ struct SubscriptionPack: View {
 
 struct PaywallIntoView_Previews: PreviewProvider {
     static var previews: some View {
-        PaywallView(hidePaywallIntro: .constant(true))
+        PaywallView()
             .previewDevice("iPhone 14 Pro Max")
     }
 }

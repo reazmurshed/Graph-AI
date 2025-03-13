@@ -12,4 +12,7 @@ enum Constants {
         static let buttonScale = SwiftUI.Animation.spring(response: 0.3, dampingFraction: 0.6)
         static let transition = AnyTransition.opacity.combined(with: .slide)
     }
-} 
+    enum UserDefaultsKey {
+        static let alreadyOnboarded = "alreadyOnboarded"
+    }
+}
