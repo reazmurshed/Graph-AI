@@ -10,7 +10,8 @@ struct ContentView: View {
     @State private var buttonScale: CGFloat = 1.0
     @StateObject private var backgroundManager = BackgroundManager.shared
     @State private var showingSubscriptionPromo = false
-    
+    @State private var showingOnboardingScreen = false
+
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -104,26 +105,17 @@ struct ContentView: View {
                             }
                             .padding(.horizontal, 20)
                             .padding(.bottom, 20)
-                            .onAppear {
-                                withAnimation(
-                                    Animation
-                                        .easeInOut(duration: 3.0)
-                                        .repeatForever(autoreverses: true)
-                                ) {
-                                    buttonScale = 0.97
-                                }
-                            }
                         }
                     }
                 }
             }
-//            .sheet(isPresented: $showingCamera) {
-//                CameraView()
-//                    .interactiveDismissDisabled(true)
-//            }
-            .fullScreenCover(isPresented: $showingCamera) {
-                OnboardingView(shouldShowView: $showingCamera)
+            .sheet(isPresented: $showingCamera) {
+                CameraView()
+                    .interactiveDismissDisabled(true)
             }
+//            .fullScreenCover(isPresented: $showingCamera) {
+//                OnboardingView(shouldShowView: $showingCamera)
+//            }
             .sheet(isPresented: $showingMenu) {
                 MenuView()
                     .presentationDetents([.medium])
@@ -131,16 +123,21 @@ struct ContentView: View {
             .navigationBarHidden(true)
         }
         .navigationViewStyle(.stack)
-        /*
         .onAppear {
-            if subscriptionManager.trialStatus == .expired && !subscriptionManager.isSubscribed {
-                showingSubscriptionPromo = true
+            showingOnboardingScreen = !UserDefaults.standard.bool(forKey: Constants.UserDefaultsKey.alreadyOnboarded)
+        }
+        .fullScreenCover(isPresented: $showingOnboardingScreen) {
+            OnboardingView(shouldShowView: $showingOnboardingScreen, showingSubscriptionPromo: false)
+        }
+        .onAppear {
+            PaywallHelper.shared.checkSubscriptionStatus { subscribed in
+                subscriptionManager.isSubscribed = subscribed
+                showingSubscriptionPromo = !subscribed
             }
         }
         .fullScreenCover(isPresented: $showingSubscriptionPromo) {
-            SubscriptionPromoView()
+            PaywallView()
         }
-         */
     }
 }
 
