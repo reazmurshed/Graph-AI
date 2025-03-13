@@ -310,7 +310,7 @@ struct OnboardingView: View {
         LazyVStack(spacing: 10) {
             if step == 7, let items = content[step].commentItems {
                 ForEach(items, id: \.id) { item in
-                    LazyVStack(alignment: .leading, spacing: 8) {
+                    LazyVStack(alignment: .leading, spacing: 4) {
                         LazyHStack(alignment: .center, spacing: 8) {
                             Image(item.iconName)
                                 .resizable()
@@ -344,6 +344,8 @@ struct OnboardingView: View {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.gray.opacity(0.4)))
                 }
+            } else {
+                singleEmptyView()
             }
 
         }
@@ -404,6 +406,7 @@ struct OnboardingView: View {
                 .bold()
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
+                
             if step == 7 {
                 LazyHStack(spacing: -10) {
                     ForEach(0..<3) { index in
@@ -456,6 +459,8 @@ struct OnboardingView: View {
                             .cornerRadius(20)
                     }
                 }
+            } else {
+                EmptyView().frame(maxWidth: .infinity, maxHeight: 1)
             }
         }
     }
@@ -507,6 +512,8 @@ struct OnboardingView: View {
                         .foregroundColor(.gray)
                         .padding()
                 }
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -515,7 +522,7 @@ struct OnboardingView: View {
         VStack {
             if step == 4 {
                 VStack(spacing: 10) {
-                    Spacer()
+//                    Spacer()
                     ForEach(tradingStyles) { style in
                         Button(action: {
                             selectedOption = style.name
@@ -544,7 +551,7 @@ struct OnboardingView: View {
                                                 : Color.white
                                                     .opacity(0.7))
                                 }
-                                Spacer()
+//                                Spacer()
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
@@ -556,10 +563,16 @@ struct OnboardingView: View {
                             .cornerRadius(15)
                         }
                     }
-                    Spacer()
+//                    Spacer()
                 }
+            } else {
+                singleEmptyView()
             }
         }
+    }
+    
+    func singleEmptyView(height: CGFloat = 1) -> some View {
+        EmptyView().frame(maxWidth: .infinity, maxHeight: height)
     }
 
     func fifthScreenChartAIView() -> some View {
@@ -624,6 +637,8 @@ struct OnboardingView: View {
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
                 .padding(.vertical, 20)
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -655,8 +670,9 @@ struct OnboardingView: View {
                 .padding(.horizontal)
 
                 Spacer()
+            } else {
+                singleEmptyView()
             }
-
         }
     }
 
@@ -670,6 +686,8 @@ struct OnboardingView: View {
                     .frame(width: 200, height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 Spacer()
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -729,6 +747,8 @@ struct OnboardingView: View {
                 DetailedAnalysisView()
 
                 Spacer()
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -746,15 +766,14 @@ struct OnboardingView: View {
                         .onDisappear {
                             player.pause()
                         }
-                        .frame(height: 450, alignment: .bottom)
+                        .frame(height: 500, alignment: .bottom)
                         .frame(maxWidth: .infinity)
                         .cornerRadius(12)
                 }
+            } else {
+                singleEmptyView()
             }
         }
-        .frame(maxHeight: .infinity, alignment: .bottom)
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, 5)
     }
 
     //MARK: - Main UI Body
@@ -764,22 +783,21 @@ struct OnboardingView: View {
             if step > 0 {
                 topView()
             } else {
-                Spacer()
+//                Spacer()
             }
-            Spacer()
-            ScrollView {
+//            Spacer()
+            ScrollView() {
                 // MARK: - Title & Subtitle
                 if step < content.count {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 6) {
                         ZStack {
                             titleAndSubTitleView()
                             twelveStepView()
                         }
-                        initialVideoView().padding(10)
+                        initialVideoView()
 
                         // MARK: - List Items (For First Two Screens)
-                        contentOptionListView().padding(10)
-                        //                        Spacer()
+                        contentOptionListView()
                         //MARK: - Show Graph (For Third Screen)
                         thirdScreenContentGraphView()
 
@@ -795,9 +813,11 @@ struct OnboardingView: View {
                         tenthScreenContentShimmerView()
                         eleventhStepView()
                     }
+                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: .infinity)
+                    .padding(.bottom, 5)
                 }
             }
-            .padding(.bottom, 10)
 
             //MARK: - Next Button
             Button(action: {
