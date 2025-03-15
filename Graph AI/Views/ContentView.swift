@@ -138,6 +138,14 @@ struct ContentView: View {
         .fullScreenCover(isPresented: $showingSubscriptionPromo) {
             PaywallView()
         }
+        /*
+        .onAppear {
+            showingOnboardingScreen = !UserDefaults.standard.bool(forKey: Constants.UserDefaultsKey.alreadyOnboarded)
+        }
+        .fullScreenCover(isPresented: $showingOnboardingScreen) {
+            OnboardingView(shouldShowView: $showingOnboardingScreen)
+        }
+        */
     }
 }
 

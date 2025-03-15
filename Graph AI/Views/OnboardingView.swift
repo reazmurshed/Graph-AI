@@ -67,6 +67,7 @@ struct OnboardingView: View {
     @State private var selectedOption: String? = nil
     @Binding var shouldShowView: Bool
     @State var showingSubscriptionPromo: Bool
+
     private let totalSteps = 13
     var player: AVPlayer {
         if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
@@ -95,17 +96,17 @@ struct OnboardingView: View {
 
     //MARK: - Content Data
     let chartBIData: [ProfitablityItem] = [
-        ProfitablityItem(title: "Chart AI", month: "Month 1", value: 0),
+        ProfitablityItem(title: "Graph AI", month: "Month 1", value: 0),
         ProfitablityItem(title: "Trading Gurus", month: "Month 1", value: 0),
-        ProfitablityItem(title: "Chart AI", month: "Month 2", value: 10),
+        ProfitablityItem(title: "Graph AI", month: "Month 2", value: 10),
         ProfitablityItem(title: "Trading Gurus", month: "Month 2", value: 8),
-        ProfitablityItem(title: "Chart AI", month: "Month 3", value: 13),
+        ProfitablityItem(title: "Graph AI", month: "Month 3", value: 13),
         ProfitablityItem(title: "Trading Gurus", month: "Month 3", value: 16),
-        ProfitablityItem(title: "Chart AI", month: "Month 4", value: 16),
+        ProfitablityItem(title: "Graph AI", month: "Month 4", value: 16),
         ProfitablityItem(title: "Trading Gurus", month: "Month 4", value: 13),
-        ProfitablityItem(title: "Chart AI", month: "Month 5", value: 18),
+        ProfitablityItem(title: "Graph AI", month: "Month 5", value: 18),
         ProfitablityItem(title: "Trading Gurus", month: "Month 5", value: 9),
-        ProfitablityItem(title: "Chart AI", month: "Month 6", value: 20),
+        ProfitablityItem(title: "Graph AI", month: "Month 6", value: 20),
         ProfitablityItem(title: "Trading Gurus", month: "Month 6", value: 0),
     ]
     private let content: [ContentItem] = [
@@ -134,7 +135,7 @@ struct OnboardingView: View {
                 "You're Just a Few Steps Away From Turning Charts Into Cash.",
             subtitle: "Your Profit Growth", options: nil, showGraph: true,
             description:
-                "Based on Chart AI's historical data, profits are usually delayed at first, but after just 7 days, users typically see significant gains."
+                "Based on Graph AI's historical data, profits are usually delayed at first, but after just 7 days, users typically see significant gains."
         ),
         ContentItem(
             title: "What's Your Trading Style?",
@@ -149,14 +150,14 @@ struct OnboardingView: View {
             description: nil
         ),
         ContentItem(
-            title: "Chart AI Was Made for People Like You",
-            subtitle: "+1000 Chart AI People", options: nil,
+            title: "Graph AI Was Made for People Like You",
+            subtitle: "+1000 Graph AI People", options: nil,
             showGraph: false, description: nil
         ),
         ContentItem(
             title:
-                "Find High-Quality Setups 5X Faster With Chart AI vs on Your Own.",
-            subtitle: "Chart AI makes it fast, easy, and expert-level precise.",
+                "Find High-Quality Setups 5X Faster With Graph AI vs on Your Own.",
+            subtitle: "Graph AI makes it fast, easy, and expert-level precise.",
             options: nil,
             showGraph: false, description: nil,
             commentItems: [
@@ -176,7 +177,7 @@ struct OnboardingView: View {
         ),
         ContentItem(
             title:
-                "Chart AI Creates Long-Term Trading Success",
+                "Graph AI Creates Long-Term Trading Success",
             subtitle: nil, options: nil,
             showGraph: false, description: nil
         ),
@@ -248,7 +249,7 @@ struct OnboardingView: View {
                             Circle()
                                 .fill(Color.blue)  // Legend color (default is automatic)
                                 .frame(width: 6, height: 6)
-                            Text("Chart AI")
+                            Text("Graph AI")
                                 .foregroundColor(.white)  // Change text to white
                                 .font(.headline)
                         }
@@ -301,7 +302,7 @@ struct OnboardingView: View {
                 }
                 .frame(height: 300)
                 .padding()
-                .background(Color.gray.opacity(0.3))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
             }
 
@@ -312,7 +313,7 @@ struct OnboardingView: View {
         LazyVStack(spacing: 10) {
             if step == 7, let items = content[step].commentItems {
                 ForEach(items, id: \.id) { item in
-                    LazyVStack(alignment: .leading, spacing: 8) {
+                    LazyVStack(alignment: .leading, spacing: 4) {
                         LazyHStack(alignment: .center, spacing: 8) {
                             Image(item.iconName)
                                 .resizable()
@@ -340,11 +341,14 @@ struct OnboardingView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .frame(minHeight: 120, maxHeight: .infinity)
                     }
+                    //                    .frame(height: 140)
                     .padding(12)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.3)))
+                            .fill(Color.gray.opacity(0.4)))
                 }
+            } else {
+                singleEmptyView()
             }
 
         }
@@ -360,7 +364,7 @@ struct OnboardingView: View {
                     .font(.title2)
                     .padding(10)
                     .foregroundStyle(.white)
-                    .background(Color.gray.opacity(0.3))
+                    .background(Color.gray.opacity(0.4))
                     .clipShape(Circle())
                     .padding()
 
@@ -405,6 +409,7 @@ struct OnboardingView: View {
                 .bold()
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
+
             if step == 7 {
                 LazyHStack(spacing: -10) {
                     ForEach(0..<3) { index in
@@ -452,11 +457,13 @@ struct OnboardingView: View {
                             .background(
                                 selectedOption == option
                                     ? Color.white.opacity(0.9)
-                                    : Color.gray.opacity(0.3)
+                                    : Color.gray.opacity(0.4)
                             )
                             .cornerRadius(20)
                     }
                 }
+            } else {
+                EmptyView().frame(maxWidth: .infinity, maxHeight: 1)
             }
         }
     }
@@ -498,7 +505,7 @@ struct OnboardingView: View {
                 }
                 .frame(height: 200)
                 .padding()
-                .background(Color.gray.opacity(0.3))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
 
                 //MARK: - Description Text
@@ -508,6 +515,8 @@ struct OnboardingView: View {
                         .foregroundColor(.gray)
                         .padding()
                 }
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -552,15 +561,21 @@ struct OnboardingView: View {
                             .background(
                                 selectedOption == style.name
                                     ? Color.white
-                                    : Color.gray.opacity(0.3)
+                                    : Color.gray.opacity(0.4)
                             )
                             .cornerRadius(15)
                         }
                     }
-                    Spacer()
+//                    Spacer()
                 }
+            } else {
+                singleEmptyView()
             }
         }
+    }
+    
+    func singleEmptyView(height: CGFloat = 1) -> some View {
+        EmptyView().frame(maxWidth: .infinity, maxHeight: height)
     }
 
     func fifthScreenChartAIView() -> some View {
@@ -568,10 +583,10 @@ struct OnboardingView: View {
             if step == 6 {
                 LazyVStack(spacing: 10) {
                     LazyHStack(spacing: 10) {
-                        // Without Chart AI
+                        // Without Graph AI
                         VStack {
-//                            Spacer()
-                            Text("Without\nChart AI")
+                            Spacer()
+                            Text("Without\nGraph AI")
                                 .font(.caption)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -589,9 +604,9 @@ struct OnboardingView: View {
                         .background(Color.black.opacity(0.9))
                         .cornerRadius(12)
 
-                        // With Chart AI
+                        // With Graph AI
                         VStack {
-                            Text("With\nChart AI")
+                            Text("With\nGraph AI")
                                 .font(.caption)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -614,7 +629,7 @@ struct OnboardingView: View {
                     .padding()
 
                     Text(
-                        "Chart AI makes it fast, easy, and expert-level precise."
+                        "Graph AI makes it fast, easy, and expert-level precise."
                     )
                     .frame(height: 50)
                     .font(.body)
@@ -622,9 +637,11 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .padding(10)
                 }
-                .background(Color.gray.opacity(0.3))
+                .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
                 .padding(.vertical, 20)
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -655,9 +672,10 @@ struct OnboardingView: View {
                 }
                 .padding(.horizontal)
 
-//                Spacer()
+                Spacer()
+            } else {
+                singleEmptyView()
             }
-
         }
     }
 
@@ -671,6 +689,8 @@ struct OnboardingView: View {
                     .frame(width: 200, height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 Spacer()
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -729,7 +749,9 @@ struct OnboardingView: View {
                 
                 DetailedAnalysisView()
 
-//                Spacer()
+                Spacer()
+            } else {
+                singleEmptyView()
             }
         }
     }
@@ -751,105 +773,96 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .cornerRadius(12)
                 }
+            } else {
+                singleEmptyView()
             }
         }
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, 5)
     }
 
     //MARK: - Main UI Body
     var body: some View {
-        NavigationView {
-            VStack {
-                // Progress Bar & Back Button
-                if step > 0 {
-                    topView()
-                } else {
-                    Spacer()
-                }
-                ScrollView {
-                    // MARK: - Title & Subtitle
-                    if step < content.count {
-                        VStack(alignment: .leading) {
-                            ZStack {
-                                titleAndSubTitleView()
-                                twelveStepView()
-                            }
-                            initialVideoView().padding(10)
-                            
-                            // MARK: - List Items (For First Two Screens)
-                            contentOptionListView().padding(10)
-                            //                        Spacer()
-                            //MARK: - Show Graph (For Third Screen)
-                            thirdScreenContentGraphView().padding(10)
-                            
-                            //MARK: - Trading Style Selection (For Fourth Screen)
-                            fourthScreenTradingView().padding(10)
-                            
-                            //MARK: - Chart AI Step (Final Step)
-                            fifthScreenChartAIView().padding(10)
-                            
-                            getConversationItemView().padding(10)
-                            profitabilityGraphView().padding(10)
-                            ninthStepView().padding(10)
-                            tenthScreenContentShimmerView().padding(10)
-                            eleventhStepView().padding(10)
+        VStack {
+            // Progress Bar & Back Button
+            if step > 0 {
+                topView()
+            } else {
+//                Spacer()
+            }
+//            Spacer()
+            ScrollView() {
+                // MARK: - Title & Subtitle
+                if step < content.count {
+                    VStack(alignment: .leading, spacing: 6) {
+                        ZStack {
+                            titleAndSubTitleView()
+                            twelveStepView()
                         }
+                        initialVideoView()
+
+                        // MARK: - List Items (For First Two Screens)
+                        contentOptionListView()
+                        //MARK: - Show Graph (For Third Screen)
+                        thirdScreenContentGraphView()
+
+                        //MARK: - Trading Style Selection (For Fourth Screen)
+                        fourthScreenTradingView()
+
+                        //MARK: - Graph AI Step (Final Step)
+                        fifthScreenChartAIView()
+
+                        getConversationItemView()
+                        profitabilityGraphView()
+                        ninthStepView()
+                        tenthScreenContentShimmerView()
+                        eleventhStepView()
                     }
+                    .frame(maxHeight: .infinity)
+                    .frame(maxWidth: .infinity)
+                    .padding(.bottom, 5)
                 }
-                .padding(.bottom, 10)
-                
-                //MARK: - Next Button
-                Button(action: {
-                    withAnimation {
-                        player.pause()
-                        if step == 13 {
-                            UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKey.alreadyOnboarded)
-                            shouldShowView.toggle()
-                        }
-                        if step < content.count - 1 {
-                            step += 1
-                            selectedOption = nil
-                        }
-                        if step == 9 || step == 11 {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-                                if step < content.count - 1 {
-                                    step += 1
-                                    selectedOption = nil
-                                }
+            }
+
+            //MARK: - Next Button
+            Button(action: {
+                withAnimation {
+                    player.pause()
+                    if step == 13 {
+                        shouldShowView.toggle()
+                    }
+                    if step < content.count - 1 {
+                        step += 1
+                        selectedOption = nil
+                    }
+                    if step == 9 || step == 11 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                            if step < content.count - 1 {
+                                step += 1
+                                selectedOption = nil
                             }
                         }
-                        
                     }
                     
-                }) {
-                    if step == 9 {
-                        customizedText("Analyze Chart")
-                    } else if step == 13 {
-                        customizedText("Get Started")
-                    } else {
-                        customizedText("Next")
-                    }
                 }
-                .background(
-                    (content[step].options == nil || selectedOption != nil)
+
+            }) {
+                if step == 9 {
+                    customizedText("Analyze Chart")
+                } else if step == 13 {
+                    customizedText("Get Started")
+                } else {
+                    customizedText("Next")
+                }
+            }
+            .background(
+                (content[step].options == nil || selectedOption != nil)
                     ? Color.green : Color.green.opacity(0.5)
-                )
-                .cornerRadius(20)
-                .padding()
-                .disabled(content[step].options != nil && selectedOption == nil)
-                .opacity((step == 9 || step == 11) ? 0 : 1)
-            }
-            .background(Color.black.edgesIgnoringSafeArea(.all))
+            )
+            .cornerRadius(20)
+            .padding()
+            .disabled(content[step].options != nil && selectedOption == nil)
+            .opacity((step == 9 || step == 11) ? 0 : 1)
         }
-        .onAppear() {
-            if !SubscriptionManager.shared.isSubscribed {
-                showingSubscriptionPromo = true
-            }
-        }
-        .fullScreenCover(isPresented: $showingSubscriptionPromo) {
-            PaywallView()
-        }
+        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
     
     func customizedText(_ text: String) -> some View {
