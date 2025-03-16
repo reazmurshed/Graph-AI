@@ -42,9 +42,9 @@
 		6AFC2A942D7CB22800B16ED5 /* Exceptions for "Graph AI" folder in "Graph AI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				all_done.gif,
 				confetti.json,
 				ORIGINAL.mp4,
+				placeholder.gif,
 				Views/OnboardingView.swift,
 			);
 			target = 84D9B41F2D747E9C000925E7 /* Graph AI */;

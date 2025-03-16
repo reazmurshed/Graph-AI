@@ -341,7 +341,6 @@ struct OnboardingView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .frame(minHeight: 120, maxHeight: .infinity)
                     }
-                    //                    .frame(height: 140)
                     .padding(12)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
@@ -428,12 +427,12 @@ struct OnboardingView: View {
                     .padding(.horizontal)
             }
             if step == 9 {
+                Spacer()
                 AnimatedImage(name: "all_done.gif")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 100, height: 100)
                     .background(Color.clear)
-
             }
         }.padding(.horizontal, 16)
     }
@@ -666,6 +665,13 @@ struct OnboardingView: View {
                     ForEach(0..<3) { _ in
                         PlaceholderCardView()
                     }
+                    /*
+                    AnimatedImage(name: "placeholder.gif")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 120)
+                        .background(Color.clear)
+                    */
                 }
                 .padding(.horizontal)
 
@@ -824,6 +830,7 @@ struct OnboardingView: View {
                 withAnimation {
                     player.pause()
                     if step == 13 {
+                        UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKey.alreadyOnboarded)
                         shouldShowView.toggle()
                     }
                     if step < content.count - 1 {
