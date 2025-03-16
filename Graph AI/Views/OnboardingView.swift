@@ -182,14 +182,14 @@ struct OnboardingView: View {
             showGraph: false, description: nil
         ),
         ContentItem(
-            title: "We're setting up your personalized AI chart assistant.",
+            title: "We're setting up your personalized Graph AI assistant.",
             subtitle: nil,
             options: nil,
             showGraph: false,
             description: nil
         ),
         ContentItem(
-            title: "Your Custom AI Chart Assistant is Ready!",
+            title: "Your Custom Graph AI Assistant is Ready!",
             subtitle:
                 "Let's run your first chart analysis to see how it works.You can create custom scans later!",
             options: nil,
@@ -197,14 +197,14 @@ struct OnboardingView: View {
             description: nil
         ),
         ContentItem(
-            title: "Your Custom AI Chart Assistant is Ready!",
+            title: "Your Custom Graph AI Assistant is Ready!",
             subtitle: nil,
             options: nil,
             showGraph: false,
             description: nil
         ),
         ContentItem(
-            title: "First Custom AI Chart Analysis!",
+            title: "First Custom Graph AI Analysis!",
             subtitle: nil,
             options: nil,
             showGraph: false,
