@@ -80,8 +80,8 @@ class PaywallHelper {
     /// Check subscription status when the app launches
     func checkSubscriptionStatus(completion: @escaping (Bool) -> Void) {
         Purchases.shared.getCustomerInfo { customerInfo, error in
-            if let customerInfo = customerInfo {
-                self.isSubscribed = customerInfo.entitlements.active.isEmpty == false
+            if let info = customerInfo {
+                self.isSubscribed = info.entitlements.active.isEmpty == false
                 completion(self.isSubscribed)
             } else {
                 completion(false)

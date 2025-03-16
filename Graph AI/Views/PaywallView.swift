@@ -13,7 +13,6 @@ struct PaywallView: View {
     @State private var isYearlyChoosed = true
     @State private var playingVideo = true
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedPackage: Package? = PaywallHelper.shared.selectedPackage
     
     var player: AVPlayer {
         if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
@@ -111,14 +110,14 @@ struct PaywallView: View {
                                     SubscriptionOptionView(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed, showFreeTrial: false)
                                         .onTapGesture {
                                             isYearlyChoosed = false
-                                            selectedPackage = package
+                                            PaywallHelper.shared.selectedPackage = package
                                         }
                                 } else if subscriptionPeriod.unit == .year {
                                     
                                     SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial())
                                         .onTapGesture {
                                             isYearlyChoosed = true
-                                            selectedPackage = package
+                                            PaywallHelper.shared.selectedPackage = package
                                         }
                                 }
                             }
@@ -141,11 +140,12 @@ struct PaywallView: View {
                         print("Subscription Continue...")
                     } else {
                         print("Start Subscription...")
-                        if let package = selectedPackage {
+                        if let package = PaywallHelper.shared.selectedPackage {
                             print("Navigate to Payment Screen...")
                             PaywallHelper.shared.purchase(package: package) { success in
                                 if success {
                                     print("Purchase Success...")
+                                    SubscriptionManager.shared.isSubscribed = success
                                     dismiss()
                                 } else {
                                     print("Failed to Purchase...")
@@ -167,7 +167,7 @@ struct PaywallView: View {
                 .padding(.top, 16)
                 
                 // Pack Price Section
-                if let package = selectedPackage {
+                if let package = PaywallHelper.shared.selectedPackage {
                     Text(getFullFormFormattedPrice(package: package))
                         .padding(.top, 4)
                         .font(.footnote)
@@ -213,7 +213,7 @@ struct PaywallView: View {
         guard !playingVideo else {
             return "Continue"
         }
-        guard selectedPackage != nil else {
+        guard PaywallHelper.shared.selectedPackage != nil else {
             return playingVideo ? "Continue" : "Unlock"
         }
         if hasFreeTrial() {
@@ -224,7 +224,7 @@ struct PaywallView: View {
     }
     
     func hasFreeTrial() -> Bool {
-        guard let package = selectedPackage else {
+        guard let package = PaywallHelper.shared.selectedPackage else {
             return false
         }
         if let introOffer = package.storeProduct.introductoryDiscount {

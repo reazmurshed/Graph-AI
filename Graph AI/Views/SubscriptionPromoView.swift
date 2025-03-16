@@ -76,7 +76,7 @@ struct SubscriptionPromoView: View {
                     // Action buttons
                     VStack(spacing: 15) {
                         Button(action: {
-                            showingPaywallIntro = true
+                            showingPaywallIntro = PaywallHelper.shared.isSubscribed
                             //dismiss()
                             //subscriptionManager.activateSubscription()
                         }) {
