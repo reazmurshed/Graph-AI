@@ -525,7 +525,6 @@ struct OnboardingView: View {
         VStack {
             if step == 4 {
                 VStack(spacing: 10) {
-//                    Spacer()
                     ForEach(tradingStyles) { style in
                         Button(action: {
                             selectedOption = style.name
@@ -554,7 +553,6 @@ struct OnboardingView: View {
                                                 : Color.white
                                                     .opacity(0.7))
                                 }
-//                                Spacer()
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
@@ -566,7 +564,6 @@ struct OnboardingView: View {
                             .cornerRadius(15)
                         }
                     }
-//                    Spacer()
                 }
             } else {
                 singleEmptyView()
@@ -800,21 +797,21 @@ struct OnboardingView: View {
                         initialVideoView()
 
                         // MARK: - List Items (For First Two Screens)
-                        contentOptionListView()
+                        contentOptionListView().padding(.horizontal, 15)
                         //MARK: - Show Graph (For Third Screen)
-                        thirdScreenContentGraphView()
+                        thirdScreenContentGraphView().padding(.horizontal, 15)
 
                         //MARK: - Trading Style Selection (For Fourth Screen)
-                        fourthScreenTradingView()
+                        fourthScreenTradingView().padding(.horizontal, 15)
 
                         //MARK: - Graph AI Step (Final Step)
-                        fifthScreenChartAIView()
+                        fifthScreenChartAIView().padding(.horizontal, 15)
 
-                        getConversationItemView()
-                        profitabilityGraphView()
-                        ninthStepView()
-                        tenthScreenContentShimmerView()
-                        eleventhStepView()
+                        getConversationItemView().padding(.horizontal, 15)
+                        profitabilityGraphView().padding(.horizontal, 15)
+                        ninthStepView().padding(.horizontal, 15)
+                        tenthScreenContentShimmerView().padding(.horizontal, 15)
+                        eleventhStepView().padding(.horizontal, 15)
                     }
                     .frame(maxHeight: .infinity)
                     .frame(maxWidth: .infinity)
