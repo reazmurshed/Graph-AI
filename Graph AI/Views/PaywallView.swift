@@ -13,7 +13,10 @@ struct PaywallView: View {
     @State private var isYearlyChoosed = true
     @State private var playingVideo = true
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var showConfirmation = false
+    @State private var isSuccess = false
+    @State private var isPurchasing = false
+
     var player: AVPlayer {
         if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
             let player = AVPlayer(url: url)
@@ -40,173 +43,210 @@ struct PaywallView: View {
     }
     
     var body: some View {
-        VStack {
-            // Header View Section
-            if playingVideo {
-                Text("Start trading like an expert with Graph Al.")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
-                
-                // Permium Features Section
-                VStack(alignment: .leading, spacing: 16) {
-                    VideoPlayerView(player: player)
-                        .onAppear {
-                            player.play()
-                        }
-                        .onDisappear {
-                            player.pause()
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .edgesIgnoringSafeArea(.all)
-                }
-                .padding(.top, 5)
-                .padding(.bottom, 5)
-            } else {
-                // Custom Back Button
-                HStack {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                        }
-                        .padding(.horizontal)
-                        .foregroundColor(.white)
-                        .background(.clear)
-                        .cornerRadius(8)
-                    }
-                    Spacer() // Pushes button to the left
-                }
-                .padding()
-                
+        ZStack {
+            // Purchase Screen UI
+            VStack {
                 // Header View Section
-                Text("Unlock Graph AI to turn charts into cash.")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
-                
-                // Permium Features Section
-                VStack(alignment: .leading, spacing: 16) {
-                    CustomCell(text: "No More Gambling", description: "Understand market trends with precise insights from your chart.")
-                    CustomCell(text: "Custom Trading Strategy", description: "Get a step-by-step game plan to make your next winning trade.")
-                    CustomCell(text: "Trade With Confidence", description: "AI-powered analysis to boost your trading confidence and clarity.")
-                }
-                .padding(.top, 5)
-                
-                Spacer()
-                
-                // Subscription Pack Section
-                VStack {
+                if playingVideo {
+                    Text("Start trading like an expert with Graph Al.")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                    
+                    // Permium Features Section
+                    VStack(alignment: .leading, spacing: 16) {
+                        VideoPlayerView(player: player)
+                            .onAppear {
+                                player.play()
+                            }
+                            .onDisappear {
+                                player.pause()
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                    .padding(.top, 5)
+                    .padding(.bottom, 5)
+                } else {
+                    // Custom Back Button
                     HStack {
-                        ForEach(PaywallHelper.shared.allPackages ?? []) { package in
-                            
-                            if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                            }
+                            .padding(.horizontal)
+                            .foregroundColor(.white)
+                            .background(.clear)
+                            .cornerRadius(8)
+                        }
+                        Spacer() // Pushes button to the left
+                    }
+                    .padding()
+                    
+                    // Header View Section
+                    Text("Unlock Graph AI to turn charts into cash.")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                    
+                    // Permium Features Section
+                    VStack(alignment: .leading, spacing: 16) {
+                        CustomCell(text: "No More Gambling", description: "Understand market trends with precise insights from your chart.")
+                        CustomCell(text: "Custom Trading Strategy", description: "Get a step-by-step game plan to make your next winning trade.")
+                        CustomCell(text: "Trade With Confidence", description: "AI-powered analysis to boost your trading confidence and clarity.")
+                    }
+                    .padding(.top, 5)
+                    
+                    Spacer()
+                    
+                    // Subscription Pack Section
+                    VStack {
+                        HStack {
+                            ForEach(PaywallHelper.shared.allPackages ?? []) { package in
                                 
-                                if subscriptionPeriod.unit == .month && subscriptionPeriod.value == 1 {
+                                if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
                                     
-                                    SubscriptionOptionView(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed, showFreeTrial: false)
-                                        .onTapGesture {
-                                            isYearlyChoosed = false
-                                            PaywallHelper.shared.selectedPackage = package
-                                        }
-                                } else if subscriptionPeriod.unit == .year {
-                                    
-                                    SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial())
-                                        .onTapGesture {
-                                            isYearlyChoosed = true
-                                            PaywallHelper.shared.selectedPackage = package
-                                        }
+                                    if subscriptionPeriod.unit == .month && subscriptionPeriod.value == 1 {
+                                        
+                                        SubscriptionOptionView(title: "Monthly", price: getFormattedPrice(package: package), isSelected: !isYearlyChoosed, showFreeTrial: false)
+                                            .onTapGesture {
+                                                isYearlyChoosed = false
+                                                PaywallHelper.shared.selectedPackage = package
+                                            }
+                                    } else if subscriptionPeriod.unit == .year {
+                                        
+                                        SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial())
+                                            .onTapGesture {
+                                                isYearlyChoosed = true
+                                                PaywallHelper.shared.selectedPackage = package
+                                            }
+                                    }
                                 }
                             }
                         }
+                        .padding(.top, 24)
                     }
-                    .padding(.top, 24)
                 }
-            }
-            
-            // Bottom Section
-            VStack {
-                Text("✓ No Commitment - Cancel Anytime")
-                    .font(Font.system(size: 15))
-                    .foregroundColor(.white)
-                    .padding(.top, 8)
                 
-                Button(action: {
-                    if playingVideo {
-                        playingVideo = false
-                        print("Subscription Continue...")
+                // Bottom Section
+                VStack {
+                    Text("✓ No Commitment - Cancel Anytime")
+                        .font(Font.system(size: 15))
+                        .foregroundColor(.white)
+                        .padding(.top, 8)
+                    
+                    Button(action: startPurchase) {
+                        Text(getButtonTitle())
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.green)
+                            .clipShape(RoundedRectangle(cornerRadius: 22))
+                            .padding(.horizontal, 12)
+                        
+                        
+                    }
+                    .frame(maxHeight: 44)
+                    .padding(.top, 16)
+
+                    // Pack Price Section
+                    if let package = PaywallHelper.shared.selectedPackage {
+                        Text(getFullFormFormattedPrice(package: package))
+                            .padding(.top, 4)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
                     } else {
-                        print("Start Subscription...")
-                        if let package = PaywallHelper.shared.selectedPackage {
-                            print("Navigate to Payment Screen...")
-                            PaywallHelper.shared.purchase(package: package) { success in
+                        Text("Just 34,99 € per year (2,91 €/mo)")
+                            .padding(.top, 4)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    
+                    // Footer Section
+                    HStack(spacing: 16) {
+                        Link("Terms of Service", destination: URL(string: "https://example.com")!)
+                            .foregroundColor(.gray)
+                        Link("Privacy Policy", destination: URL(string: "https://example.com")!)
+                            .foregroundColor(.gray)
+                        Button("Restore Purchase") {
+                            print("Restore Purchase Tapped")
+                            PaywallHelper.shared.restorePurchases { success in
                                 if success {
-                                    print("Purchase Success...")
                                     SubscriptionManager.shared.isSubscribed = success
                                     dismiss()
+                                    print("Restore Purchases Success")
                                 } else {
-                                    print("Failed to Purchase...")
+                                    print("Restore Purchases Failed")
                                 }
                             }
                         }
-                    }
-                }) {
-                    Text(getButtonTitle())
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .clipShape(RoundedRectangle(cornerRadius: 22))
-                        .padding(.horizontal, 12)
-                }
-                .frame(maxHeight: 44)
-                .padding(.top, 16)
-                
-                // Pack Price Section
-                if let package = PaywallHelper.shared.selectedPackage {
-                    Text(getFullFormFormattedPrice(package: package))
                         .padding(.top, 4)
-                        .font(.footnote)
                         .foregroundColor(.gray)
-                } else {
-                    Text("Just 34,99 € per year (2,91 €/mo)")
-                        .padding(.top, 4)
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                }
-                
-                
-                // Footer Section
-                HStack(spacing: 16) {
-                    Link("Terms of Service", destination: URL(string: "https://example.com")!)
-                        .foregroundColor(.gray)
-                    Link("Privacy Policy", destination: URL(string: "https://example.com")!)
-                        .foregroundColor(.gray)
-                    Button("Restore Purchase") {
-                        print("Restore Purchase Tapped")
-                        PaywallHelper.shared.restorePurchases { success in
-                            if success {
-                                SubscriptionManager.shared.isSubscribed = success
-                                dismiss()
-                                print("Restore Purchases Success")
-                            } else {
-                                print("Restore Purchases Failed")
-                            }
-                        }
                     }
-                    .padding(.top, 4)
-                    .foregroundColor(.gray)
+                    .font(.footnote)
                 }
-                .font(.footnote)
+            }
+            .padding(.top, 12)
+            .background(Color.black.edgesIgnoringSafeArea(.all))
+            .foregroundColor(.white)
+            .allowsHitTesting(!showConfirmation) // Disable user interaction when popup is active
+
+            // Show Progress Indicator When Purchase is Ongoing
+            if isPurchasing {
+                LoadingOverlay()
+                    .zIndex(2)
+            }
+            
+            // Payment Confirmation Popup (Overlay)
+            if showConfirmation {
+                PaymentConfirmationView(
+                    isSuccess: isSuccess,
+                    message: isSuccess ? "Thank you for subscribing!" : "Payment Failed. Please try again.",
+                    onDismiss: {
+                        showConfirmation = false
+                        dismiss()
+                    }
+                )
+                .zIndex(1) // Ensures the popup stays on top
+                .animation(.easeInOut, value: showConfirmation)
             }
         }
-        .padding(.top, 12)
-        .background(Color.black.edgesIgnoringSafeArea(.all))
-        .foregroundColor(.white)
+    }
+    
+    // Simulate Purchase Process
+    private func startPurchase() {
+        // Simulate a network delay (e.g., processing payment)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+            isPurchasing = false // Hide loader
+        }
+        if playingVideo {
+            playingVideo = false
+            print("Subscription Continue...")
+        } else {
+            print("Start Subscription...")
+            isPurchasing = true
+            if let package = PaywallHelper.shared.selectedPackage {
+                print("Navigate to Payment Screen...")
+                PaywallHelper.shared.purchase(package: package) { success in
+                    if success {
+                        print("Purchase Success...")
+                        SubscriptionManager.shared.isSubscribed = success
+                        isSuccess = true
+                    } else {
+                        print("Failed to Purchase...")
+                        isSuccess = false
+                    }
+                    isPurchasing = false
+                    showConfirmation = true
+                }
+            }
+        }
     }
     
     func getButtonTitle() -> String {
@@ -427,5 +467,28 @@ struct PaywallIntoView_Previews: PreviewProvider {
     static var previews: some View {
         PaywallView()
             .previewDevice("iPhone 14 Pro Max")
+    }
+}
+
+struct LoadingOverlay: View {
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.4) // Dim background
+                .edgesIgnoringSafeArea(.all)
+
+            VStack(spacing: 10) {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(1.5)
+
+                Text("Purchasing...")
+                    .foregroundColor(.white)
+                    .font(.headline)
+            }
+            .padding(20)
+            .background(Color.black.opacity(0.7))
+            .cornerRadius(12)
+            .shadow(radius: 10)
+        }
     }
 }
