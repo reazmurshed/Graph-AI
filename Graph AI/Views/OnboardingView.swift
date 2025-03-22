@@ -133,7 +133,7 @@ struct OnboardingView: View {
         ContentItem(
             title:
                 "You're Just a Few Steps Away From Turning Charts Into Cash.",
-            subtitle: "Your Profit Growth", options: nil, showGraph: true,
+            subtitle: nil, options: nil, showGraph: true,
             description:
                 "Based on Graph AI's historical data, profits are usually delayed at first, but after just 7 days, users typically see significant gains."
         ),
@@ -294,7 +294,7 @@ struct OnboardingView: View {
                     .chartLegend(.hidden)  // Moves legend to top
 
                     Text(
-                        "80% of Chart Al users achieve long-term profitability."
+                        "80% of Graph Al users achieve long-term profitability."
                     )
                     .font(.body)
                     .foregroundStyle(.gray.opacity(0.8))
@@ -317,7 +317,8 @@ struct OnboardingView: View {
                         LazyHStack(alignment: .center, spacing: 8) {
                             Image(item.iconName)
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .aspectRatio(contentMode: .fill) // Ensures aspect fill
+                                .frame(width: 40, height: 40)
                                 .clipShape(Circle())
 
                             Text(item.userName)
@@ -332,7 +333,6 @@ struct OnboardingView: View {
                                         .foregroundColor(.green)
                                 }
                             }
-//                            Spacer()
                         }
 
                         Text(item.comment)
@@ -414,7 +414,8 @@ struct OnboardingView: View {
                     ForEach(0..<3) { index in
                         Image("profile_\(index+1)")
                             .resizable()
-                            .frame(width: 40, height: 40)
+                            .aspectRatio(contentMode: .fill) // Ensures aspect fill
+                            .frame(width: 50, height: 50)
                             .clipShape(Circle())
                     }
                 }.padding(.top, 20)
@@ -428,11 +429,15 @@ struct OnboardingView: View {
             }
             if step == 9 {
                 Spacer()
+                MergingDotsAnimationView()
+                    .frame(width: 150, height: 150)
+                /*
                 AnimatedImage(name: "all_done.gif")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
                     .background(Color.clear)
+                */
             }
         }.padding(.horizontal, 16)
     }
@@ -470,6 +475,7 @@ struct OnboardingView: View {
     func thirdScreenContentGraphView() -> some View {
         LazyVStack {
             if content[step].showGraph {
+                /*
                 Chart {
                     // Gradient Fill Under the Line
                     AreaMark(
@@ -506,12 +512,23 @@ struct OnboardingView: View {
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(12)
-
+                */
+                Text("Your Profit Growth")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding()
+                
+                Image("candle-chart")  // Replace with actual image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 180)
+                
                 //MARK: - Description Text
                 if let description = content[step].description {
                     Text(description)
-                        .font(.body)
-                        .foregroundColor(.gray)
+                        .font(.title2)
+                        .foregroundColor(.white)
                         .padding()
                 }
             } else {
@@ -788,10 +805,7 @@ struct OnboardingView: View {
             // Progress Bar & Back Button
             if step > 0 {
                 topView()
-            } else {
-//                Spacer()
             }
-//            Spacer()
             ScrollView() {
                 // MARK: - Title & Subtitle
                 if step < content.count {
@@ -838,7 +852,7 @@ struct OnboardingView: View {
                         selectedOption = nil
                     }
                     if step == 9 || step == 11 {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             if step < content.count - 1 {
                                 step += 1
                                 selectedOption = nil
@@ -876,6 +890,36 @@ struct OnboardingView: View {
             .foregroundColor(
                 (content[step].options == nil || selectedOption != nil)
                     ? Color.white : Color.white.opacity(0.5))
+    }
+}
+
+struct MergingDotsAnimationView: View {
+    @State private var isMerging = false
+
+    var body: some View {
+        ZStack {
+            ForEach(0..<3, id: \.self) { index in
+                Circle()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.green)
+                    .offset(isMerging ? .zero : initialOffset(for: index))
+                    .rotationEffect(.degrees(isMerging ? 360 : 0))
+                    .animation(Animation.easeInOut(duration: 2.0), value: isMerging)
+            }
+        }
+        .onAppear {
+            isMerging.toggle()
+        }
+    }
+
+    func initialOffset(for index: Int) -> CGSize {
+        let distance: CGFloat = 30
+        switch index {
+        case 0: return CGSize(width: -distance, height: -distance) // Top-left
+        case 1: return CGSize(width: distance, height: -distance)  // Top-right
+        case 2: return CGSize(width: 0, height: distance)          // Bottom-center
+        default: return .zero
+        }
     }
 }
 
