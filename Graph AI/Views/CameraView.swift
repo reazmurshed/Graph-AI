@@ -171,7 +171,7 @@ struct CameraView: View {
             //SubscriptionPromoView()
         }
         .onChange(of: viewModel.analysis) { newAnalysis in
-            if subscriptionManager.trialStatus == .active,
+            if subscriptionManager.isSubscribed,
                let analysis = newAnalysis,
                let imageData = viewModel.capturedImage?.jpegData(compressionQuality: 0.8) {
                 do {
