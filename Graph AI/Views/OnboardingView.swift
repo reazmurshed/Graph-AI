@@ -69,6 +69,7 @@ struct OnboardingView: View {
     @State var showingSubscriptionPromo: Bool
 
     private let totalSteps = 13
+    private let videoViewHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ?  UIScreen.main.bounds.height * 0.75 :  UIScreen.main.bounds.height * 0.55
     var player: AVPlayer {
         if let url = Bundle.main.url(forResource: "ORIGINAL", withExtension: "mp4") {
             let player = AVPlayer(url: url)
@@ -519,10 +520,48 @@ struct OnboardingView: View {
                     .foregroundColor(.white)
                     .padding()
                 
+                /*
                 Image("candle-chart")  // Replace with actual image
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity, maxHeight: 180)
+                */
+                Chart {
+                    // Gradient Fill Under the Line
+                    AreaMark(
+                        x: .value("Day", profitData[0].day),
+                        yStart: .value("Zero", 0),
+                        yEnd: .value("Profit", profitData[0].value)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                Color.green,
+                                Color.white,
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ))
+
+                    // Line Graph
+                    ForEach(profitData) { data in
+                        LineMark(
+                            x: .value("Day", data.day),
+                            y: .value("Profit", data.value)
+                        )
+                        .foregroundStyle(.green)
+
+                        PointMark(
+                            x: .value("Day", data.day),
+                            y: .value("Profit", data.value)
+                        )
+                        .foregroundStyle(.green)
+                    }
+                }
+                .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 300 : 150)
+                .padding()
+                .background(Color.white.opacity(0.09))
+                .cornerRadius(12)
                 
                 //MARK: - Description Text
                 if let description = content[step].description {
@@ -665,7 +704,7 @@ struct OnboardingView: View {
                 Image("analyzed_icon")  // Replace with actual image
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 180, height: 180)
+                    .frame(width: 230, height: 230)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .shadow(radius: 12)
                     .overlay(
@@ -703,10 +742,10 @@ struct OnboardingView: View {
         HStack(alignment: .center) {
             if step == 10 {
                 Spacer()
-                Image("analyzed_icon")  // Replace with actual image
+                Image("candle-chart")  // Replace with actual image
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 180)
+                    .frame(maxWidth: .infinity, maxHeight: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 Spacer()
             } else {
@@ -779,7 +818,7 @@ struct OnboardingView: View {
     func initialVideoView() -> some View {
         VStack {
             if step == 0 {
-                
+                Spacer()
                 // Permium Features Section
                 HStack(alignment: .bottom) {
                     VideoPlayerView(player: player)
@@ -789,7 +828,7 @@ struct OnboardingView: View {
                         .onDisappear {
                             player.pause()
                         }
-                        .frame(height: 500, alignment: .bottom)
+                        .frame(height: videoViewHeight, alignment: .bottom)
                         .frame(maxWidth: .infinity)
                         .cornerRadius(12)
                 }

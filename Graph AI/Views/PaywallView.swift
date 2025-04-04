@@ -119,7 +119,7 @@ struct PaywallView: View {
                                             }
                                     } else if subscriptionPeriod.unit == .year {
                                         
-                                        SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial())
+                                        SubscriptionOptionView(title: "Yearly", price: getFormattedPrice(package: package), isSelected: isYearlyChoosed, showFreeTrial: hasFreeTrial(package: package))
                                             .onTapGesture {
                                                 isYearlyChoosed = true
                                                 PaywallHelper.shared.selectedPackage = package
@@ -170,9 +170,9 @@ struct PaywallView: View {
                     
                     // Footer Section
                     HStack(spacing: 16) {
-                        Link("Terms of Service", destination: URL(string: "https://example.com")!)
+                        Link("Terms of Service", destination: URL(string: "https://graphai.app/terms.html")!)
                             .foregroundColor(.gray)
-                        Link("Privacy Policy", destination: URL(string: "https://example.com")!)
+                        Link("Privacy Policy", destination: URL(string: "https://graphai.app/privacy.html")!)
                             .foregroundColor(.gray)
                         Button("Restore Purchase") {
                             print("Restore Purchase Tapped")
@@ -253,20 +253,17 @@ struct PaywallView: View {
         guard !playingVideo else {
             return "Continue"
         }
-        guard PaywallHelper.shared.selectedPackage != nil else {
+        guard let package = PaywallHelper.shared.selectedPackage else {
             return playingVideo ? "Continue" : "Unlock"
         }
-        if hasFreeTrial() {
+        if hasFreeTrial(package: package) {
             return "Start My Free Trial"
         } else {
             return playingVideo ? "Continue" : "Unlock"
         }
     }
     
-    func hasFreeTrial() -> Bool {
-        guard let package = PaywallHelper.shared.selectedPackage else {
-            return false
-        }
+    func hasFreeTrial(package: Package) -> Bool {
         if let introOffer = package.storeProduct.introductoryDiscount {
             return introOffer.paymentMode == .freeTrial
         }
@@ -297,6 +294,9 @@ struct PaywallView: View {
         if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
             if subscriptionPeriod.unit == .year {
                 monthlyPrice = monthlyPrice / 12.0
+                if hasFreeTrial(package: package) {
+                    return "3 days free, Then " + "\(String(format: "%.2f", monthlyPrice * 12))" + " " + currencyCode + " per year" + " (" + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + "/mo" + ")"
+                }
                 return "Just " + "\(String(format: "%.2f", monthlyPrice * 12))" + " " + currencyCode + " per year" + " (" + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + "/mo" + ")"
             } else {
                 return "Just " + "\(String(format: "%.2f", monthlyPrice))" + " " + currencyCode + " per month"
@@ -380,7 +380,7 @@ struct SubscriptionOptionView: View {
                 .stroke(isSelected ? Color.white : Color.gray, lineWidth: 6)
                 .background(Color.clear)
                 .cornerRadius(12)
-                .frame(maxWidth: .infinity, maxHeight: 100)
+                .frame(maxWidth: .infinity, maxHeight: 110)
 
             // "3 DAYS FREE" Badge
             if showFreeTrial {
@@ -398,13 +398,18 @@ struct SubscriptionOptionView: View {
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding(.top, 4)
-
+                    if showFreeTrial {
+                        Text("3 days free then,")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
                     Text(price)
                         .font(.title3)
                         .bold()
                         .foregroundColor(.white)
                 }
                 .padding()
+                singleEmptyView()
                 
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
@@ -418,8 +423,12 @@ struct SubscriptionOptionView: View {
                 Spacer()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 100)
-        .padding(.horizontal, 12)
+        .frame(maxWidth: .infinity, maxHeight: 110)
+        .padding(.horizontal, 10)
+    }
+    
+    func singleEmptyView(width: CGFloat = 1) -> some View {
+        EmptyView().frame(maxWidth: width, maxHeight: .infinity)
     }
 }
 
