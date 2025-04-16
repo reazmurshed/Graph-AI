@@ -701,7 +701,7 @@ struct OnboardingView: View {
     func tenthScreenContentShimmerView() -> some View {
         VStack {
             if step == 11 {
-                Image("analyzed_icon")  // Replace with actual image
+                Image("candle-chart")  // Replace with actual image
                     .resizable()
                     .scaledToFit()
                     .frame(width: 230, height: 230)
@@ -711,7 +711,7 @@ struct OnboardingView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(
                                 LinearGradient(
-                                    colors: [.purple, .orange],
+                                    colors: [.purple, .green],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing), lineWidth: 6)
                     )
