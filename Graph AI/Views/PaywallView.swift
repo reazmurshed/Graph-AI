@@ -155,18 +155,26 @@ struct PaywallView: View {
                     .padding(.top, 16)
 
                     // Pack Price Section
-                    if let package = PaywallHelper.shared.selectedPackage {
-                        Text(getFullFormFormattedPrice(package: package))
-                            .padding(.top, 4)
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                    if playingVideo == false {
+                        if let package = PaywallHelper.shared.selectedPackage {
+                            Text(getFullFormFormattedPrice(package: package))
+                                .padding(.top, 4)
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                            
+                            if let subscriptionPeriod = package.storeProduct.subscriptionPeriod, subscriptionPeriod.unit == .year {
+                                Text("Auto-renews every year until cancelled.")
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                            } else {
+                                Text("Auto-renews every month until cancelled.")
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                            }
+                        }
                     } else {
-                        Text("Just 34,99 € per year (2,91 €/mo)")
-                            .padding(.top, 4)
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                        Spacer().frame(height: 20)
                     }
-                    
                     
                     // Footer Section
                     HStack(spacing: 16) {
@@ -271,16 +279,15 @@ struct PaywallView: View {
     }
     
     func getFormattedPrice(package: Package) -> String {
-        var monthlyPrice: Float = (package.storeProduct.price as NSDecimalNumber).floatValue
-        if let subscriptionPeriod = package.storeProduct.subscriptionPeriod {
-            if subscriptionPeriod.unit == .year {
-                monthlyPrice = monthlyPrice / 12.0
-            }
-        }
+        let price: Float = (package.storeProduct.price as NSDecimalNumber).floatValue
+        
         if let currencyCode = package.storeProduct.currencyCode {
-            return "\(String(format: "%.2f", monthlyPrice))" + " " + getSymbol(forCurrencyCode: currencyCode) + " / mo"
+            if let subscriptionPeriod = package.storeProduct.subscriptionPeriod, subscriptionPeriod.unit == .year {
+                return "\(String(format: "%.2f", price))" + " " + getSymbol(forCurrencyCode: currencyCode) + "/year"
+            }
+            return "\(String(format: "%.2f", price))" + " " + getSymbol(forCurrencyCode: currencyCode) + "/month"
         } else {
-            return "\(monthlyPrice)" + " " + "$" + " / mo"
+            return "\(price)" + " " + "$" + "/mo"
         }
     }
     
@@ -380,7 +387,7 @@ struct SubscriptionOptionView: View {
                 .stroke(isSelected ? Color.white : Color.gray, lineWidth: 6)
                 .background(Color.clear)
                 .cornerRadius(12)
-                .frame(maxWidth: .infinity, maxHeight: 110)
+                .frame(maxWidth: .infinity, maxHeight: 100)
 
             // "3 DAYS FREE" Badge
             if showFreeTrial {
@@ -391,20 +398,21 @@ struct SubscriptionOptionView: View {
                     .foregroundColor(.black)
                     .offset(y: -12)
             }
-            
             HStack {
                 VStack(alignment: .leading) {
                     Text(title)
                         .font(.headline)
                         .foregroundColor(.white)
-                        .padding(.top, 4)
+                        .padding(.top, 5)
+                    /*
                     if showFreeTrial {
                         Text("3 days free then,")
-                            .font(.headline)
+                            .font(.subheadline)
                             .foregroundColor(.white)
                     }
+                    */
                     Text(price)
-                        .font(.title3)
+                        .font(.subheadline)
                         .bold()
                         .foregroundColor(.white)
                 }
@@ -423,7 +431,7 @@ struct SubscriptionOptionView: View {
                 Spacer()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 110)
+        .frame(maxWidth: .infinity, maxHeight: 100)
         .padding(.horizontal, 10)
     }
     
