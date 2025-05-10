@@ -15,7 +15,7 @@ final class SubscriptionManager: ObservableObject {
     static let shared: SubscriptionManager = .init()
     
     // MARK: - Published Properties
-    @Published private(set) var isSubscribed: Bool = false
+    @Published var isSubscribed: Bool = false
     @Published private(set) var trialStatus: TrialStatus = .expired
     
     // MARK: - Constants
@@ -27,11 +27,12 @@ final class SubscriptionManager: ObservableObject {
         
         //checkTrialStatus()
         // For demo purposes, let's start with subscription active
-        //isSubscribed = true
         PaywallHelper.shared.fetchProductPackages()
+        /*
         PaywallHelper.shared.checkSubscriptionStatus { status in
             self.isSubscribed = status
         }
+        */
     }
     
     // MARK: - Trial Management
